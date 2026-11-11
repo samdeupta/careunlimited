@@ -1,0 +1,23 @@
+name: PR check
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: pr-check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    name: Build and image check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # Fails on any build error (bad front matter, missing section file, unknown section type)
+      # and on any image referenced in content/ that is not in assets/img.
+      - run: npm run check
