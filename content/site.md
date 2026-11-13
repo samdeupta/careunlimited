@@ -8,8 +8,8 @@ logo: web-logo.png          # file in assets/img (leave blank to show the name a
 favicon: web-logo.png                 # optional tab icon: a .png/.svg/.ico in assets/img. Blank = auto "CU" badge
 footer_blurb: "Care Unlimited is there at all times providing guidance, solutions, security, and support to all our elderly members."
 address:
-  - "7, Aswini Dutta Road, Ground Floor"
-  - "Kolkata - 700 029"
+  - "47, Dhakuria Station Road"
+  - "Kolkata - 700 031"
 phone: "+91 9874019729"
 email: care.unlimited@outlook.com
 social:

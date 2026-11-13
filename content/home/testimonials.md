@@ -15,7 +15,7 @@ _Kolkata_
 
 ![](img/t-goutam.jpg)
 
-My 80+year old mother-in-law stays alone in Gariahat area.... We were worried during lockdown as we weren't able to visit her at all..... Care Unlimited gave her ample support in every way, be it buying essentials, medicines, withdrawl of cash and meeting other critical needs. Most importantly, they gave her so much social support and frequent networking with other senior citizens, that she no longer felt lonely; rather she looks forward to such interactions. With Care Unlimited around, she was never alone.... Thank you care Unlimited.
+My 80+ year old mother-in-law stays alone in Gariahat area.... We were worried during lockdown as we weren't able to visit her at all..... Care Unlimited gave her ample support in every way, be it buying essentials, medicines, withdrawl of cash and meeting other critical needs. Most importantly, they gave her so much social support and frequent networking with other senior citizens, that she no longer felt lonely; rather she looks forward to such interactions. With Care Unlimited around, she was never alone.... Thank you care Unlimited.
 
 ### Jayeeta Banerjee Mukherjee
 _Lives in USA, her mother availing our service for last 5 years_

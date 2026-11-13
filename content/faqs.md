@@ -10,7 +10,7 @@ description: "Frequently asked questions about Care Unlimited's service model, c
 
 ## What is Care Unlimited?
 
-Care Unlimited is an organization that provides non-critical care at home service for the elderly with minimum commercial fine prints. We believe elderly home care is a relationship based service and should not be bounded by scope of services. Thus our Care Advisers assist in almost all areas where the elderly may need support. They also often extend beyond the framework of duration or visits, if needed.
+Care Unlimited is an organization that provides personalized care at home for the elderly with minimum commercial fine prints. We believe elderly home care is a relationship-based service and should not be bounded by scope of services. Thus, our Care Advisers assist in almost all areas where the elderly may need support. They also often extend beyond the framework of duration or visits, if needed.
 
 ## What is the service model of Care Unlimited?
 
@@ -18,13 +18,15 @@ We have three models - **Standard** (two visits a week); **Regular** (two visits
 
 ## Why should we choose Care Unlimited?
 
-We offer personalized service - we customize the support as per the needs of the elderly. Our Director makes a personal home visit on a regular basis. Thus all elderly will be direct access to him. We support through matured Care Advisers. All our care advisers are middle aged, and have experience in handling elderly. The elderly loves having a matured person for listening to their challenges and who can easily relate to their stories.
+We offer personalized service - we customize the support as per the needs of the elderly. Our director makes personal home visit on a regular basis. Thus, all elderly have direct access to him. We support through matured Care Advisers. All our care advisers are middle aged, and have experience in handling the elderly. The elderly loves having a matured person to listen to their challenges and who can easily relate to their stories.
 
-Once a service model is fixed, there are rarely any additional charges. We understand the type of support as well as the number of visits needed may vary from time to time. We provide additional coverage if required, and will typically try to waive additional charges. This gives the elderly comfort to call us for any need, without having to worry about charges. The profession structure of our service provides regular updates, as well as summary of the visits on a monthly basis.
+Once a service model is fixed, there are rarely any additional charges. We understand that the type of support as well as the number of visits needed may vary from time to time. We provide additional coverage if required, and will typically try to waive additional charges. This gives the elderly comfort to call us for any need, without having to worry about charges. We ensure regular updates, as well as summary of the visits on a monthly basis to the children.
 
-## What services will be provided by Care Unlimited?
+## What services would be provided by Care Unlimited?
 
-Our service offering covers financial operations, health management, engagement in life, support service facilitation. Specific details of all these areas can be found in our brochure or web-site. Be it banking, be it going to the doctor, be it getting hold of a repair person, be it going out to a relative's place - you will find us beside you. You need to tell us what regular activities is a botheration to you, we will find a solution for it. However, if you enjoy doing it - we will not take it away. Most importantly we will be spending quality time with you and always be just a phone call away.
+Our services are crafted to inspire our elders to engage with life purposefully which would lead to a positivity that is crucial to mental wellbeing. We thus arrange our services, outlined below, *depending on the preferences of each individual*:
+
+Eradicate their worries – by addressing their daily chores; Hold intellectually stimulating discussions; Give them a sense of achievement - Rekindle their desires, make them believe that their wishes / dreams can still be achieved; Arrange for new social connections for them by arranging social and cultural events; Design positivity boosters – publish annual magazine with their contributions and design calendars capturing memorable events from their lives; Understand & improve their positivity level; Provide 24X7 Medical Emergency Coverage – through a partnership with an organization specialized in the field of medical management.
 
 ## What if we need more visits than the subscribed model?
 
@@ -32,11 +34,13 @@ We will try to accommodate additional visits as long as it is not too high (less
 
 ## What do the service charges cover?
 
-The service charges cover the time spent by Care Unlimited team. Any third party charges need to be paid directly to the third party or paid in advance to care adviser. In case the care adviser is accompanying the elderly, all expenses of the care adviser need to be reimbursed.
+The service charges cover the time spent by Care Unlimited team. Any third-party charges need to be paid directly to the third party or paid in advance to the care adviser. In case the care adviser is accompanying the elderly for some event or visit, all applicable expenses (travel, entry tickets etc.) of the care adviser are to be reimbursed.
 
 ## I am looking for emergency coverage, how can Care Unlimited help me?
 
-Care Unlimited does not provide emergency coverage. We will however help to make a plan in advance to ensure that the household is adequately prepared to handle an emergency. We will provide suggestions of Hospitals or organizations where one can enroll to get emergency coverage. We will also try to assist if notified of emergency, but since our operation is not designed for such coverage - it will not be prudent to depend on us.
+We help design an emergency plan in advance to ensure that the household is adequately prepared to handle an emergency situation. We will provide suggestions of Hospitals or organizations where one can enroll to get emergency coverage. We will also try to assist if notified of emergency, but since our operation is not designed for such coverage - it will not be prudent to depend on us.
+
+We appreciate that a non-medical emergency plan is not sufficient for all our elders and hence, for those who need a comprehensive emergency medical management we have partnered with an organization who has the right expertise to complement us in the space of medical emergencies on a 24X7 basis. Clients of Care Unlimited can get emergency medical coverage from this organization after signing a tripartite agreement. Our clients would get the benefit of a negotiated rate and the security deposit would be fully waived (for clients with medical insurance).
 
 ## Do I need to provide personal and financial information to the organization?
 

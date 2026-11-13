@@ -31,3 +31,11 @@ sections:
 ![](img/yh-oct18-p1.jpg)
 ![](img/yh-oct18-p2.jpg)
 ![](img/yh-oct18-p3.jpg)
+
+## The Statesman June 2023
+
+![](img/the-statesman-jun24.jpg)
+
+## Spatahik Bartaman August 2024
+
+![](img/spatahik-bartaman-aug24.png)

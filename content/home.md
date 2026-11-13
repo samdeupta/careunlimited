@@ -3,7 +3,7 @@ slug: ""
 title: Home
 description: "Care Unlimited – Attention | Care | Respect. Relationship-based support for senior citizens in Kolkata."
 hero_title: "Attention | Care | Respect"
-hero_text: "Changing the experience of old age through active aging and meaningful engagement."
+hero_text: "Enriching their minds not just extending their years"
 hero_image: ""              # optional, e.g. hero.jpg in assets/img
 hero_buttons:
   - { label: Our services, url: /services/ }
