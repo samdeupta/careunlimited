@@ -53,9 +53,9 @@ export function renderPage(p, fileBase) {
     const buttons = (d.hero_buttons || [])
       .map((b, i) => `<a class="btn${i ? ' ghost' : ''}" href="${esc(b.url)}">${esc(b.label)}</a>`)
       .join(' ');
-    const hasImg = d.hero_image && fs.existsSync(path.join(ASSETS, 'img', d.hero_image));
+    const hasImg = d.hero_image && fs.existsSync(path.join(ASSETS, 'imgs', d.hero_image));
     if (d.hero_image && !hasImg) missingImages.add(d.hero_image);
-    const bg = hasImg ? ` style="--hero-img:url('/img/${esc(d.hero_image)}')"` : '';
+    const bg = hasImg ? ` style="--hero-img:url('/imgs/${esc(d.hero_image)}')"` : '';
     head += `<section class="hero${hasImg ? ' has-image' : ''}"${bg}><div class="wrap"><h1>${esc(d.hero_title)}</h1>${d.hero_text ? `<p>${esc(d.hero_text)}</p>` : ''}${buttons ? `<p>${buttons}</p>` : ''}</div></section>`;
   } else if (d.title && d.show_title !== false) {
     head += `<div class="wrap page-head"><h1>${esc(d.title)}</h1></div>`; // the page title is the <h1>

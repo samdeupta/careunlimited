@@ -15,7 +15,7 @@ export function gallery(d, content, ctx) {
         .map((m) => {
           const alt = m[1] || g.title;
           const tag = imgTag(m[2], alt);
-          const href = /^https?:\/\//.test(m[2]) ? m[2] : `/img/${m[2].replace(/^\/?img\//, '')}`;
+          const href = /^https?:\/\//.test(m[2]) ? m[2] : `/imgs/${m[2].replace(/^\/?imgs\//, '')}`;
           return tag
             ? `<a href="${esc(href)}" data-viewer="image" data-group="${esc(g.title)}" data-alt="${esc(alt)}">${tag}</a>`
             : '';

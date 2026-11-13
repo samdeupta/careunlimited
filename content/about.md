@@ -25,7 +25,7 @@ Our compassionate and dedicated staff strive to achieve a successful outcome for
 
 ## Mission & Vision
 
-![Mission & Vision](img/vision-msn.png)
+![Mission & Vision](imgs/vision-msn.png)
 
 ### Build everlasting relationships with our Elderly Members.
 

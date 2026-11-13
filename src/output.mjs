@@ -18,7 +18,7 @@ export function writePage(slug, html) {
   // All templates use root-relative URLs; make them relative so the site works from any folder or sub-path.
   const out = html
     .replace(/(href|src|poster)="\/(?!\/)/g, `$1="${prefix}`)
-    .replace(/url\('\/img\//g, `url('${prefix}img/`);
+    .replace(/url\('\/imgs\//g, `url('${prefix}imgs/`);
   const dest = path.join(OUT, slug, 'index.html');
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   fs.writeFileSync(dest, out);

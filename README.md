@@ -15,7 +15,7 @@ The website is made from plain text files in the **`content`** folder. One file 
 | `content/` | One file per page, plus `site.md` (details used on every page) |
 | `content/<page name>/` | Extra blocks for that page (for example `content/services/` holds blocks for `services.md`) |
 | `content/home/` | The blocks that make up the home page |
-| `assets/img/` | All pictures |
+| `assets/imgs/` | All pictures |
 | `assets/vid/` | Video files you upload yourself (optional) |
 
 **Every content file has two parts**, separated by a line of three dashes:
@@ -131,7 +131,7 @@ Everything below the settings is ordinary writing with a few marks added for for
 | `- an item` (one per line) | A bulleted list |
 | `1. an item` (one per line) | A numbered list |
 | `> a quotation` | An indented quotation with a coloured bar |
-| `![A short description](img/photo.jpg)` | A picture (section 4) |
+| `![A short description](imgs/photo.jpg)` | A picture (section 4) |
 
 Points to remember:
 
@@ -164,10 +164,10 @@ Any setting in `site.md` can be used this way (`{{ site.name }}`, `{{ site.tagli
 
 **Putting a picture on the site**
 
-1. Save the picture into **`assets/img/`**.
+1. Save the picture into **`assets/imgs/`**.
 2. Refer to it by file name, in one of two ways:
    - In the **settings**, write only the file name: `image: about.png`
-   - In the **text**, write `![Description](img/about.png)`, on a line by itself. The description is read aloud by screen readers for blind visitors, so say what the picture shows.
+   - In the **text**, write `![Description](imgs/about.png)`, on a line by itself. The description is read aloud by screen readers for blind visitors, so say what the picture shows.
 
 **Tips**
 
@@ -227,13 +227,13 @@ The `videos` block type (section 7) makes a row of video cards. Each video is a 
 ### Welcome message
 A short hello from our founder.
 
-![](img/welcome-poster.jpg)
+![](imgs/welcome-poster.jpg)
 
 [Watch video](vid/welcome.mp4)
 ```
 
 - The line starting `[Watch video](…)` holds the video: a YouTube or Vimeo web address, or `vid/file.mp4`. The words in the brackets become the link text under the card.
-- The `![](img/…)` line is **optional**. It replaces the automatic preview picture (for a video file, that is its first frame).
+- The `![](imgs/…)` line is **optional**. It replaces the automatic preview picture (for a video file, that is its first frame).
 - Clicking a card opens its video in the large viewer. **The videos in one row of cards form a group:** once one is open, the left and right buttons (or the arrow keys) move to the previous or next video in that row. A video written into ordinary text opens on its own.
 
 ---
@@ -353,7 +353,7 @@ An introduction that appears above the boxes.
 | `columns` | How many boxes per row: `1` to `4` (default `3`). `1` gives wide boxes, one under another |
 
 - Each **heading starts a new box**. Text before the first heading is the introduction.
-- Inside a box you can use paragraphs, lists, bold and links. Three optional lines get special treatment: a line that is only a picture (`![](img/x.jpg)`) becomes the box's picture, a line wrapped in underscores (`_Founder_`) becomes a small subtitle, and a line that is only a link (`[Read more](/about/)`) becomes the box's "Read more →" link.
+- Inside a box you can use paragraphs, lists, bold and links. Three optional lines get special treatment: a line that is only a picture (`![](imgs/x.jpg)`) becomes the box's picture, a line wrapped in underscores (`_Founder_`) becomes a small subtitle, and a line that is only a link (`[Read more](/about/)`) becomes the box's "Read more →" link.
 - Each box can be linked to from elsewhere by its heading (see `index` below).
 
 ### `accordion`: questions that open and close
@@ -383,16 +383,16 @@ type: gallery
 ---
 ## Sananda
 
-![Cover of the November 2016 issue](img/sananda-nov16-cover.jpeg)
-![First page of the article](img/sananda-nov16-p1.jpeg)
+![Cover of the November 2016 issue](imgs/sananda-nov16-cover.jpeg)
+![First page of the article](imgs/sananda-nov16-p1.jpeg)
 
 ## Your Health April 2018
 
-![](img/yh-apr18-cover.jpg)
-![](img/yh-apr18-p1.jpg)
+![](imgs/yh-apr18-cover.jpg)
+![](imgs/yh-apr18-p1.jpg)
 ```
 
-- Each **heading starts a group** of small pictures. Each picture is a line `![description](img/file.jpg)`; the description is optional (the group's heading is used when it is empty).
+- Each **heading starts a group** of small pictures. Each picture is a line `![description](imgs/file.jpg)`; the description is optional (the group's heading is used when it is empty).
 - Clicking a picture opens a large viewer with left and right buttons to move through that group. Esc or the × closes it. Pictures appear in the order you write them.
 - With no headings at all, all the pictures form one group.
 
@@ -432,7 +432,7 @@ title: Testimonials
 ### Goutam Mukherjee
 _Kolkata_
 
-![](img/t-goutam.jpg)
+![](imgs/t-goutam.jpg)
 
 My 80+ year old mother-in-law stays alone in Gariahat area. Care Unlimited gave her ample support in every way.
 
@@ -445,7 +445,7 @@ Cannot thank Care Unlimited enough.
 Each person is a heading with their **name**, then, in any order:
 
 - one line wrapped in underscores, `_like this_`: who they are (shown under the name)
-- one line that is only a picture, `![](img/file.jpg)`: their photo (optional)
+- one line that is only a picture, `![](imgs/file.jpg)`: their photo (optional)
 - the quotation itself: everything else
 
 ### `index`: links to the items on another page
@@ -584,7 +584,7 @@ We organise regular events for our members.
 
 ## Photos
 
-![Picnic last year](img/picnic.jpg)
+![Picnic last year](imgs/picnic.jpg)
 ```
 
 2. Add it to the menu in `content/site.md`, where you want it to appear:
@@ -628,7 +628,7 @@ title: Photos
 ---
 ## Last year's picnic
 
-![Picnic](img/picnic.jpg)
+![Picnic](imgs/picnic.jpg)
 ```
 
 `content/events/enquiries.md`:
@@ -668,12 +668,12 @@ Change the `slug:` line **and** the matching menu line in `site.md`. Old links t
 | Error: `"layout" is no longer used` | An old `layout:` line is still in the file. Delete it and use `type:` instead |
 | Error: `Section file not found` | A name in `sections` has no matching file in the page's folder. Check spelling, and that the file ends in `.md` |
 | Error: `{{ site.… }} is not defined` | A placeholder uses a name that isn't in `content/site.md` |
-| A picture is missing | The file name doesn't match (check capital letters, spaces and `.jpg` vs `.jpeg`), or the file isn't in `assets/img/` |
+| A picture is missing | The file name doesn't match (check capital letters, spaces and `.jpg` vs `.jpeg`), or the file isn't in `assets/imgs/` |
 | A video link shows as ordinary blue text | The address must be **alone on its line**, and not written as `[text](address)` |
 | A video file doesn't appear | Check the name and ending, that the file is in `assets/vid/`, and that the line is `![description](vid/file.mp4)` |
 | Two paragraphs run together | Leave a **blank line** between them |
 | A question, box or card is cut in two | A heading was used inside it. A heading always starts a new item |
-| A testimonial has no subtitle or photo | The subtitle must be a single line wrapped in `_underscores_`, and the photo a line containing only `![](img/file.jpg)` |
+| A testimonial has no subtitle or photo | The subtitle must be a single line wrapped in `_underscores_`, and the photo a line containing only `![](imgs/file.jpg)` |
 | A card shows an unexpected link or subtitle | A line that is only a link, or only wrapped in underscores, is treated as the card's link or subtitle. Put other words on the same line to keep it as ordinary text |
 | A menu item leads to "page not found" | The menu `url` must be `/` + the page's `slug` + `/`, for example `/about/` |
 | A block you added isn't showing | Its name must be in the page's `sections` list, spelled the same as its file name |
@@ -714,7 +714,7 @@ Plain paragraph. Leave a blank line before the next one.
 - bullet
 1. numbered
 > quotation
-![describe the picture](img/file.jpg)
+![describe the picture](imgs/file.jpg)
 ![describe the video](vid/file.mp4)
 https://www.youtube.com/watch?v=VIDEOID        (alone on its line)
 {{ site.phone }}   {{ site.email }}   {{ site.address }}
