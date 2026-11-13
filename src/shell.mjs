@@ -4,6 +4,7 @@ import { site } from './content.mjs';
 import { esc } from './util.mjs';
 import { imgTag, imgUrl } from './images.mjs';
 import { FEATURES } from './features.mjs';
+import { renderTemplate } from './template.mjs';
 
 /** <link rel="icon"> for every page. Uses `favicon:` from site.md (a file in assets/img), else an auto-generated
  *  initials badge as an inline SVG, so browsers never fall back to requesting a missing /favicon.ico. */
@@ -49,56 +50,12 @@ export function shell({ title, description, url, body, jsonld, features = [] }) 
     ? `<link rel="canonical" href="${esc(site.url.replace(/\/$/, '') + url)}">`
     : '';
   const desc = description || site.description || '';
-  return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(fullTitle)}</title>
-<meta name="description" content="${esc(desc)}">
-${canonical}
-<meta property="og:title" content="${esc(fullTitle)}">
-<meta property="og:description" content="${esc(desc)}">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="${BRAND_DARK}">
-${iconLink()}
-<script>document.documentElement.classList.add('js');if(!window.CSSViewTransitionRule)document.documentElement.classList.add('no-vt')</script>
-<link rel="preload" href="/fonts/source-sans-3-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/lora-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/style.css">
-${[]
-  .concat(jsonld || [])
-  .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`)
-  .join('\n')}
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="site-header">
-  <div class="wrap bar">
-    <a class="brand" href="/">${logo || esc(site.name)}</a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-    <nav id="nav" aria-label="Main"><ul>${nav}</ul></nav>
-  </div>
-</header>
-<main id="main">
-${body}
-</main>
-${[...features].map((f) => `${FEATURES[f].html}<script>${FEATURES[f].js}</script>`).join('\n')}
-<footer class="site-footer">
-  <div class="wrap foot">
-    <div>
-      <p class="foot-name">${esc(site.name)}</p>
-      <p>${esc(site.footer_blurb || '')}</p>
-      <p>${social}</p>
-    </div>
-    <div>
-      <p class="foot-name">Contact us</p>
-      <p>${addr}<br><a href="tel:${esc((site.phone || '').replace(/\s+/g, ''))}">${esc(site.phone)}</a><br><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
-    </div>
-  </div>
-  <p class="copy-line">© ${new Date().getFullYear()} ${esc(site.name)}</p>
-</footer>
-<script>
+  const featureHtml = [...features].map((f) => `${FEATURES[f].html}<script>${FEATURES[f].js}</script>`).join('\n');
+  const structuredData = []
+    .concat(jsonld || [])
+    .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`)
+    .join('\n');
+  const sharedScript = `
   const b=document.querySelector('.nav-toggle'),n=document.getElementById('nav');
   b.addEventListener('click',()=>{const o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
   // Scroll fade-in: sections start faded (CSS, only when JS is on) and get .in once they scroll into view.
@@ -139,7 +96,26 @@ ${[...features].map((f) => `${FEATURES[f].html}<script>${FEATURES[f].js}</script
       a.onfinish=()=>{d.open=want;d.style.overflow='';a=null};
     });
   });
-</script>
-</body>
-</html>`;
+`;
+  return renderTemplate('shell', {
+    title: esc(fullTitle),
+    description: esc(desc),
+    canonical,
+    themeColor: BRAND_DARK,
+    iconLink: iconLink(),
+    jsonld: structuredData,
+    logo: logo || esc(site.name),
+    nav,
+    body,
+    features: featureHtml,
+    siteName: esc(site.name),
+    footerBlurb: esc(site.footer_blurb || ''),
+    social,
+    address: addr,
+    phoneHref: esc((site.phone || '').replace(/\s+/g, '')),
+    phone: esc(site.phone),
+    email: esc(site.email),
+    year: new Date().getFullYear(),
+    sharedScript,
+  });
 }

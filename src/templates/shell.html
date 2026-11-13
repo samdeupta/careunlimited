@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+{{canonical}}
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="{{themeColor}}">
+{{iconLink}}
+<script>document.documentElement.classList.add('js');if(!window.CSSViewTransitionRule)document.documentElement.classList.add('no-vt')</script>
+<link rel="preload" href="/fonts/source-sans-3-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/lora-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+{{jsonld}}
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/">{{logo}}</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main"><ul>{{nav}}</ul></nav>
+  </div>
+</header>
+<main id="main">
+{{body}}
+</main>
+{{features}}
+<footer class="site-footer">
+  <div class="wrap foot">
+    <div>
+      <p class="foot-name">{{siteName}}</p>
+      <p>{{footerBlurb}}</p>
+      <p>{{social}}</p>
+    </div>
+    <div>
+      <p class="foot-name">Contact us</p>
+      <p>{{address}}<br><a href="tel:{{phoneHref}}">{{phone}}</a><br><a href="mailto:{{email}}">{{email}}</a></p>
+    </div>
+  </div>
+  <p class="copy-line">© {{year}} {{siteName}}</p>
+</footer>
+<script>
+{{sharedScript}}
+</script>
+</body>
+</html>
