@@ -5,7 +5,7 @@ import { ASSETS, CONTENT } from './config.mjs';
 import { load } from './content.mjs';
 import { esc, slugify } from './util.mjs';
 import { imgTag } from './images.mjs';
-import { missingImages } from './missing.mjs';
+import { missingHeroVideos, missingImages } from './missing.mjs';
 import { COMPONENTS } from './components/registry.mjs';
 
 const banner = (d) => (d.banner ? `<div class="banner">${imgTag(d.banner, '')}</div>` : '');
@@ -55,8 +55,13 @@ export function renderPage(p, fileBase) {
       .join(' ');
     const hasImg = d.hero_image && fs.existsSync(path.join(ASSETS, 'imgs', d.hero_image));
     if (d.hero_image && !hasImg) missingImages.add(d.hero_image);
+    const hasVideo = d.hero_video && fs.existsSync(path.join(ASSETS, 'vids', d.hero_video));
+    if (d.hero_video && !hasVideo) missingHeroVideos.add(d.hero_video);
     const bg = hasImg ? ` style="--hero-img:url('/imgs/${esc(d.hero_image)}')"` : '';
-    head += `<section class="hero${hasImg ? ' has-image' : ''}"${bg}><div class="wrap"><h1>${esc(d.hero_title)}</h1>${d.hero_text ? `<p>${esc(d.hero_text)}</p>` : ''}${buttons ? `<p>${buttons}</p>` : ''}</div></section>`;
+    const video = hasVideo
+      ? `<video class="hero-video" src="/vids/${esc(d.hero_video)}" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>`
+      : '';
+    head += `<section class="hero${hasImg ? ' has-image' : ''}${hasVideo ? ' has-video' : ''}"${bg}>${video}<div class="wrap"><h1>${esc(d.hero_title)}</h1>${d.hero_text ? `<p>${esc(d.hero_text)}</p>` : ''}${buttons ? `<p>${buttons}</p>` : ''}</div></section>`;
   } else if (d.title && d.show_title !== false) {
     head += `<div class="wrap page-head"><h1>${esc(d.title)}</h1></div>`; // the page title is the <h1>
   }

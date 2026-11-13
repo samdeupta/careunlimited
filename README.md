@@ -17,7 +17,8 @@ The website is made from plain text files in the **`content`** folder. One file 
 | `content/home/` | The blocks that make up the home page |
 | `assets/imgs/<page>/` | Pictures used by that page (for example `assets/imgs/about/`) |
 | `assets/imgs/site/` | Site-wide pictures, such as the logo and favicon |
-| `assets/vid/` | Video files you upload yourself (optional) |
+| `assets/vid/` | Video files used in content blocks (optional) |
+| `assets/vids/` | Background video files used by page heroes (optional) |
 
 **Every content file has two parts**, separated by a line of three dashes:
 
@@ -266,6 +267,7 @@ Every page, including the home page, is made the same way. A page file can conta
 | `hero_title` | The big heading. When this is present it replaces the plain page heading |
 | `hero_text` | The sentence beneath it |
 | `hero_image` | A background picture (leave out for plain blue) |
+| `hero_video` | A looping background video from `assets/vids/` (optional; takes precedence visually over the hero background) |
 | `hero_buttons` | Buttons under it: a `label` and a `url` each. The first is solid white, the rest are outlined |
 
 ### Extra blocks
