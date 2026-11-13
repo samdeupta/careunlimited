@@ -13,7 +13,7 @@
 //   src/features.mjs     the image viewer (extra markup + script for pages that need it)
 //   src/components/      one file per block type (text, cards, accordion, gallery, ...) + registry.mjs
 //   src/page.mjs         assembles one page from its settings, text and blocks
-//   src/shell.mjs        the HTML page template (head, header, footer)
+//   src/shell.mjs        fills the HTML page template; src/templates/ holds reusable HTML templates
 //   src/output.mjs       writes dist/: pages, 404, sitemap, robots
 import './src/config.mjs'; // first: installs crash reporting for CI
 import fs from 'node:fs';

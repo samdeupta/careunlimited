@@ -5,12 +5,9 @@
 // Links inside the same [data-viewer-group] container are stepped through with the previous/next buttons;
 // a link outside any group opens on its own.
 
-export const LIGHTBOX_HTML = `<dialog id="lightbox" class="lightbox" aria-label="Viewer">
-  <button class="lb-btn lb-close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-  <div class="lb-stage"><div class="lb-media"></div><p class="lb-cap"></p></div>
-  <button class="lb-btn lb-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5l-7 7 7 7"/></svg></button>
-  <button class="lb-btn lb-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5l7 7-7 7"/></svg></button>
-</dialog>`;
+import { renderTemplate } from './template.mjs';
+
+export const LIGHTBOX_HTML = renderTemplate('lightbox');
 export const LIGHTBOX_JS = `(function(){
   var dlg=document.getElementById('lightbox'); if(!dlg||!dlg.showModal) return;
   var media=dlg.querySelector('.lb-media'), cap=dlg.querySelector('.lb-cap'), items=[], i=0;
