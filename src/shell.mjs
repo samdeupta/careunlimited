@@ -63,6 +63,8 @@ ${canonical}
 <meta name="theme-color" content="${BRAND_DARK}">
 ${iconLink()}
 <script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="/fonts/source-sans-3-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/lora-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/style.css">
 ${[]
   .concat(jsonld || [])

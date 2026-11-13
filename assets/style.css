@@ -1,4 +1,9 @@
 /* Care Unlimited – original stylesheet (clean-room; not derived from the old WordPress theme). */
+
+/* Fonts: self-hosted (assets/fonts, no third-party requests). Lora for headings, Source Sans 3 for text. Both OFL-licensed variable fonts, Latin subset. */
+@font-face{font-family:"Lora";font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/lora-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:200 900;font-display:swap;src:url(/fonts/source-sans-3-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-style:italic;font-weight:200 900;font-display:swap;src:url(/fonts/source-sans-3-latin-wght-italic.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
   /* Palette: two blues + white. This is the only place colours are defined: edit these two triplets
      and the whole site follows. (build.mjs reads --blue-dark-rgb from here for the favicon and the
@@ -11,14 +16,16 @@
   --tint:rgb(var(--blue-rgb) / .07);        /* faint wash of the blue, for alternating sections */
   --line:rgb(var(--blue-dark-rgb) / .16);
   --radius:14px; --max:1080px;
+  --font-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-head:"Lora",Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box}
-html{font-size:112.5%;scroll-behavior:smooth}           /* 18px base: comfortable for older readers */
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+html{font-size:118.75%;scroll-behavior:smooth}           /* 19px base: Source Sans runs a little small, and this keeps it comfortable for older readers */
+body{margin:0;font-family:var(--font-body);color:var(--ink);background:var(--bg);line-height:1.7}
 img{max-width:100%;height:auto;display:block}
 a{color:var(--blue)}
 a:hover{color:var(--blue-dark)}
-h1,h2,h3,h4{font-family:Georgia,"Times New Roman",serif;line-height:1.25;color:var(--blue);margin:1.4em 0 .5em}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.25;color:var(--blue);margin:1.4em 0 .5em}
 h1{font-size:2.1rem;margin-top:.6em} h2{font-size:1.6rem} h3{font-size:1.2rem}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
 .skip{position:absolute;left:-999px;top:0;background:#fff;padding:.5rem 1rem;z-index:20}
@@ -29,7 +36,7 @@ h1{font-size:2.1rem;margin-top:.6em} h2{font-size:1.6rem} h3{font-size:1.2rem}
 /* header */
 .site-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:72px}
-.brand{font-family:Georgia,serif;font-weight:700;font-size:1.3rem;text-decoration:none;color:var(--blue-dark)}
+.brand{font-family:var(--font-head);font-weight:700;font-size:1.3rem;text-decoration:none;color:var(--blue-dark)}
 .brand .logo{height:52px;width:auto}
 nav ul{display:flex;gap:.25rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
 nav a{display:block;padding:.45rem .8rem;border-radius:999px;text-decoration:none;color:var(--ink);font-size:.92rem}
@@ -157,7 +164,7 @@ body:has(dialog[open]){overflow:hidden}
 .site-footer{background:var(--blue-dark);color:rgba(255,255,255,.9);padding:2.5rem 0 1rem;margin-top:0}
 .site-footer a{color:#fff}
 .foot{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.foot-name{font-family:Georgia,serif;font-size:1.2rem;color:#fff;margin:0 0 .4rem}
+.foot-name{font-family:var(--font-head);font-size:1.2rem;color:#fff;margin:0 0 .4rem}
 .copy-line{text-align:center;font-size:.85rem;opacity:.75;margin:1.5rem 0 0}
 @media (max-width:640px){.foot{grid-template-columns:1fr}}
 @media print{.site-header,.site-footer,.nav-toggle{display:none}}
