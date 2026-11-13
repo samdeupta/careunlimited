@@ -5,7 +5,7 @@ tagline: "Attention | Care | Respect"
 url: https://careunlimited.in
 description: "Care Unlimited provides non-critical, relationship-based home support for senior citizens in Kolkata: banking, health management, companionship and more."
 logo: site/web-logo.png          # file in assets/imgs (leave blank to show the name as text)
-favicon: site/web-logo.png                 # optional tab icon: a .png/.svg/.ico in assets/imgs. Blank = auto "CU" badge
+favicon: site/web-logo.png       # optional tab icon: a .png/.svg/.ico in assets/imgs. Blank = auto "CU" badge
 footer_blurb: "Care Unlimited is there at all times providing guidance, solutions, security, and support to all our elderly members."
 address:
   - "47, Dhakuria Station Road"

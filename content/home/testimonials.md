@@ -2,14 +2,6 @@
 type: testimonials
 title: Testimonials
 ---
-<!--
-  To add a testimonial, copy one block below.
-  Line 1 (###)      = name
-  _italic line_     = who they are
-  ![](imgs/home/testimonials/x.jpg)    = optional photo (put the file in assets/imgs/home/testimonials)
-  Everything else   = the quote
--->
-
 ### Goutam Mukherjee
 _Kolkata_
 

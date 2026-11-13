@@ -15,4 +15,4 @@ Our services are crafted to inspire our elders to engage with life purposefully 
 
 6. **Eradicate their worries** – by addressing their daily chores.
 
-7. **24X7 Medical Emergency Coverage** – provided through a partnership with an organization specialized in the field of medical management.
+7. **24 × 7 Medical Emergency Coverage** – provided through a partnership with an organization specialized in the field of medical management.

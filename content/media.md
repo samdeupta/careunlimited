@@ -7,6 +7,14 @@ description: "Care Unlimited in the press: magazine features and newspaper cover
 sections:
   - press
 ---
+## Spatahik Bartaman August 2024
+
+![](imgs/media/spatahik-bartaman-august-2024/spatahik-bartaman-aug24.png)
+
+## The Statesman June 2020
+
+![](imgs/media/the-statesman-june-2023/the-statesman-jun24.jpg)
+
 ## Pujo Magazine Probashi 2019
 
 ![](imgs/media/pujo-magazine-probashi-2019/pujo-2019-cover.jpeg)
@@ -31,11 +39,3 @@ sections:
 ![](imgs/media/your-health-november-2017/yh-oct18-p1.jpg)
 ![](imgs/media/your-health-november-2017/yh-oct18-p2.jpg)
 ![](imgs/media/your-health-november-2017/yh-oct18-p3.jpg)
-
-## The Statesman June 2023
-
-![](imgs/media/the-statesman-june-2023/the-statesman-jun24.jpg)
-
-## Spatahik Bartaman August 2024
-
-![](imgs/media/spatahik-bartaman-august-2024/spatahik-bartaman-aug24.png)

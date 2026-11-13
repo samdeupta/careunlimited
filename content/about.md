@@ -1,6 +1,6 @@
 ---
 slug: about
-title: Since 2014
+title: About Us
 banner: about/about-banner.png
 description: "The story of Care Unlimited, founded in Kolkata in 2014 to support the city's senior citizens."
 ---

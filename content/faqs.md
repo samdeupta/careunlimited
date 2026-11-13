@@ -6,8 +6,6 @@ title: FAQs
 banner: faqs/faqs-banner.png
 description: "Frequently asked questions about Care Unlimited's service model, charges, visits and emergency coverage."
 ---
-<!-- Each "## " heading is a question; the text under it is the answer. -->
-
 ## What is Care Unlimited?
 
 Care Unlimited is an organization that provides personalized care at home for the elderly with minimum commercial fine prints. We believe elderly home care is a relationship-based service and should not be bounded by scope of services. Thus, our Care Advisers assist in almost all areas where the elderly may need support. They also often extend beyond the framework of duration or visits, if needed.
