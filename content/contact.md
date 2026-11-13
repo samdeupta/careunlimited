@@ -2,7 +2,7 @@
 type: form
 slug: contact
 title: Get In Touch With Us!
-banner: contact-banner.png
+banner: contact/contact-banner.png
 description: "Contact Care Unlimited in Kolkata: address, phone, email and enquiry form."
 button: Send message
 fields:

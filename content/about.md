@@ -1,7 +1,7 @@
 ---
 slug: about
 title: Since 2014
-banner: about-banner.png
+banner: about/about-banner.png
 description: "The story of Care Unlimited, founded in Kolkata in 2014 to support the city's senior citizens."
 ---
 Care Unlimited commenced its operations in the year 2014. It saw the need for supporting our senior citizens. A section of the population that is often lonely because of family and friends becoming fewer and distanced. Natural degeneration, less social interaction due to mobility issues, loss of confidence and social neglect prevents them from pursuing an active and fulfilling life. It is accepted in society that old age results in these problems and so the general population ignores the pain and isolation of senior citizens, leaving them even more lonely. This is the time when they benefit from a strong support system, to help them overcome their disability and renew their passions and interests and feel confident.
@@ -25,7 +25,7 @@ Our compassionate and dedicated staff strive to achieve a successful outcome for
 
 ## Mission & Vision
 
-![Mission & Vision](imgs/vision-msn.png)
+![Mission & Vision](imgs/about/vision-msn.png)
 
 ### Build everlasting relationships with our Elderly Members.
 
