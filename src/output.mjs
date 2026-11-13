@@ -48,3 +48,43 @@ export function writeExtras(sitemap) {
     );
   }
 }
+
+/** Fail the build when a content-generated link points to a file or page that was not built. */
+export function validateInternalLinks(pages) {
+  const origin = new URL(site.url || 'https://careunlimited.invalid').origin;
+
+  for (const page of pages) {
+    const pageUrl = new URL(page.url, `${origin}/`);
+    const htmlPath = path.join(OUT, page.slug, 'index.html');
+    const html = fs.readFileSync(htmlPath, 'utf8');
+
+    for (const [, href] of html.matchAll(/\bhref="([^"]*)"/g)) {
+      let target;
+      try {
+        target = new URL(href, pageUrl);
+      } catch {
+        throw new Error(`content/${page.file}: invalid link "${href}"`);
+      }
+      if (target.origin !== origin) continue;
+
+      let pathname;
+      try {
+        pathname = decodeURIComponent(target.pathname);
+      } catch {
+        throw new Error(`content/${page.file}: invalid link path "${target.pathname}"`);
+      }
+      const targetPath = path.resolve(OUT, `.${pathname}`);
+      if (targetPath !== OUT && !targetPath.startsWith(`${OUT}${path.sep}`))
+        throw new Error(`content/${page.file}: link "${href}" points outside the built site`);
+
+      let filePath = targetPath;
+      if (pathname.endsWith('/') || (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()))
+        filePath = path.join(filePath, 'index.html');
+      else if (!path.extname(pathname) && !fs.existsSync(filePath))
+        filePath = path.join(filePath, 'index.html');
+
+      if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile())
+        throw new Error(`content/${page.file}: link "${href}" points to missing route or file "${pathname}"`);
+    }
+  }
+}
