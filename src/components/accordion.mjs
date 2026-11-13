@@ -19,7 +19,7 @@ export function accordion(d, content, ctx) {
   const items = blocks
     .map(
       (b) =>
-        `<details id="${slugify(b.title)}"><summary>${esc(b.title)}</summary><div class="answer">${md(b.body)}</div></details>`,
+        `<details class="reveal" id="${slugify(b.title)}"><summary>${esc(b.title)}</summary><div class="answer">${md(b.body)}</div></details>`,
     )
     .join('');
   return `${top(d, ctx, intro)}<div class="accordion">${items}</div>`;

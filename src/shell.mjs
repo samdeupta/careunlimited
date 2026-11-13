@@ -59,9 +59,10 @@ export function shell({ title, description, url, body, jsonld, features = [] }) 
   const b=document.querySelector('.nav-toggle'),n=document.getElementById('nav');
   b.addEventListener('click',()=>{const o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
   // Scroll fade-in: sections start faded (CSS, only when JS is on) and get .in once they scroll into view.
+  // threshold 0 (not a fraction): a tall section on a phone can never be 12% visible, so it would stay invisible.
   (()=>{const els=document.querySelectorAll('.reveal');
     if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(e=>e.classList.add('in'));return}
-    const io=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    const io=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:0,rootMargin:'0px 0px -8% 0px'});
     els.forEach((e)=>io.observe(e));})();
   // Pictures fade in once loaded (CSS hides lazy images only when JS is on; if anything goes wrong they still appear).
   document.querySelectorAll('img[loading=lazy]').forEach((i)=>{

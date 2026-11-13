@@ -13,7 +13,7 @@ export function cards(d, content, ctx) {
       const x = extract(b.body);
       const pic = x.image ? imgTag(x.image.src, x.image.alt || b.title) : '';
       return (
-        `<article class="card" id="${slugify(b.title)}">${pic}<h3>${esc(b.title)}</h3>` +
+        `<article class="card reveal" id="${slugify(b.title)}">${pic}<h3>${esc(b.title)}</h3>` +
         `${x.subtitle ? `<p class="sub">${esc(x.subtitle)}</p>` : ''}${md(x.text)}` +
         `${x.link ? `<a class="more" href="${esc(x.link.url)}">${esc(x.link.label)} →</a>` : ''}</article>`
       );

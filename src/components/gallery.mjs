@@ -23,7 +23,7 @@ export function gallery(d, content, ctx) {
         .join('');
       const id = g.title ? ` id="${slugify(g.title)}"` : '';
       const title = g.title ? `<${h}>${esc(g.title)}</${h}>` : '';
-      return `<section class="gallery-group"${id}>${title}<div class="gallery" data-viewer-group>${imgs}</div></section>`;
+      return `<section class="gallery-group reveal"${id}>${title}<div class="gallery" data-viewer-group>${imgs}</div></section>`;
     })
     .join('');
   return `${top(d, ctx, blocks.length ? intro : '')}${html}`;

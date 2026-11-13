@@ -12,7 +12,7 @@ export function testimonials(d, content, ctx) {
       const x = extract(b.body);
       const photo = x.image ? imgTag(x.image.src, b.title, 'avatar') : '';
       return (
-        `<figure class="card quote"><blockquote>${md(x.text)}</blockquote><figcaption>${photo}` +
+        `<figure class="card quote reveal"><blockquote>${md(x.text)}</blockquote><figcaption>${photo}` +
         `<span><strong>${esc(b.title)}</strong>${x.subtitle ? `<br><small>${esc(x.subtitle)}</small>` : ''}</span></figcaption></figure>`
       );
     })

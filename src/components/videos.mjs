@@ -17,7 +17,7 @@ export function videos(d, content, ctx) {
         x.link && !isLocalVideo(url)
           ? `<a class="more" href="${esc(url)}" rel="noopener">${esc(x.link.label)} →</a>`
           : '';
-      return `<article class="card video">${player}<h3>${esc(b.title)}</h3>${md(x.text)}${watch}</article>`;
+      return `<article class="card video reveal">${player}<h3>${esc(b.title)}</h3>${md(x.text)}${watch}</article>`;
     })
     .join('');
   const chan = d.channel
