@@ -3,22 +3,24 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { ASSETS, IN_CI, STRICT } from './config.mjs';
-import { missingImages, missingVideos } from './missing.mjs';
+import { missingHeroVideos, missingImages, missingVideos } from './missing.mjs';
 
 /** Print warnings and, in --strict mode, exit with an error if anything is missing. */
 export function reportProblems() {
   // Large files: GitHub warns at 50 MB and rejects pushes over 100 MB.
   const bigVideos = [];
-  (function walk(dir, rel = '') {
-    if (!fs.existsSync(dir)) return;
-    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (e.isDirectory()) walk(path.join(dir, e.name), `${rel}${e.name}/`);
-      else if (fs.statSync(path.join(dir, e.name)).size > 50 * 1024 * 1024)
-        bigVideos.push(`${rel}${e.name}`);
-    }
-  })(path.join(ASSETS, 'vid'));
+  for (const folder of ['vid', 'vids']) {
+    (function walk(dir, rel = `${folder}/`) {
+      if (!fs.existsSync(dir)) return;
+      for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (e.isDirectory()) walk(path.join(dir, e.name), `${rel}${e.name}/`);
+        else if (fs.statSync(path.join(dir, e.name)).size > 50 * 1024 * 1024)
+          bigVideos.push(`${rel}${e.name}`);
+      }
+    })(path.join(ASSETS, folder));
+  }
   for (const f of bigVideos) {
-    const msg = `assets/vid/${f} is over 50 MB. GitHub warns at 50 MB and rejects files over 100 MB; compress it or host it on YouTube/Vimeo.`;
+    const msg = `assets/${f} is over 50 MB. GitHub warns at 50 MB and rejects files over 100 MB; compress it or host it on YouTube/Vimeo.`;
     console.warn(`\n⚠ ${msg}`);
     if (IN_CI) console.log(`::warning title=Large video::${msg}`);
   }
@@ -39,5 +41,6 @@ export function reportProblems() {
   }
   reportMissing(missingImages, 'Image', 'img', 'Run "npm run fetch-images" or add them:');
   reportMissing(missingVideos, 'Video', 'vid', 'Add the files:');
+  reportMissing(missingHeroVideos, 'Hero video', 'vids', 'Add the files:');
   if (failed) process.exit(1);
 }

@@ -2,3 +2,4 @@
 // report.mjs prints them at the end (and fails the build in --strict mode).
 export const missingImages = new Set();
 export const missingVideos = new Set();
+export const missingHeroVideos = new Set();

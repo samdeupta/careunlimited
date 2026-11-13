@@ -53,6 +53,10 @@ nav a[aria-current]{font-weight:600}
 /* hero + bands */
 .hero{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;padding:5rem 0 4.5rem;text-align:center}
 .hero.has-image{background:linear-gradient(rgb(var(--blue-dark-rgb) / .78),rgb(var(--blue-dark-rgb) / .78)),var(--hero-img) center/cover}
+.hero.has-video{position:relative;isolation:isolate;overflow:hidden}
+.hero-video{position:absolute;z-index:0;inset:0;width:100%;height:100%;object-fit:cover}
+.hero.has-video::before{content:"";position:absolute;z-index:1;inset:0;background:rgb(var(--blue-dark-rgb) / .65)}
+.hero.has-video>.wrap{position:relative;z-index:2}
 .hero h1{color:#fff;font-size:clamp(2rem,5vw,3.2rem);margin:0 0 .4em}
 .hero p{max-width:40rem;margin:.5rem auto;font-size:1.15rem}
 .band{padding:3.5rem 0}
@@ -194,5 +198,6 @@ body:has(dialog[open]){overflow:hidden}
 
 /* anyone who asks their device for less motion gets none of the above */
 @media (prefers-reduced-motion:reduce){
+  .hero-video{display:none}
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
 }
