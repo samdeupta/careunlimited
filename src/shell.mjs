@@ -62,7 +62,7 @@ ${canonical}
 <meta property="og:type" content="website">
 <meta name="theme-color" content="${BRAND_DARK}">
 ${iconLink()}
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');if(!window.CSSViewTransitionRule)document.documentElement.classList.add('no-vt')</script>
 <link rel="preload" href="/fonts/source-sans-3-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/style.css">
@@ -106,6 +106,25 @@ ${[...features].map((f) => `${FEATURES[f].html}<script>${FEATURES[f].js}</script
     if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(e=>e.classList.add('in'));return}
     const io=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
     els.forEach((e)=>io.observe(e));})();
+  // Pictures fade in once loaded (CSS hides lazy images only when JS is on; if anything goes wrong they still appear).
+  document.querySelectorAll('img[loading=lazy]').forEach((i)=>{
+    const ok=()=>i.classList.add('loaded');
+    if(i.complete)ok();else{i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})}
+  });
+  // Page-to-page fade for browsers without cross-document View Transitions: fade out on an internal link click, then go.
+  (()=>{const h=document.documentElement;
+    if(!h.classList.contains('no-vt')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    addEventListener('pageshow',(e)=>{if(e.persisted)h.classList.remove('leaving')});   // back button restores the page
+    document.addEventListener('click',(e)=>{
+      const a=e.target.closest&&e.target.closest('a[href]');
+      if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+      if(a.target&&a.target!=='_self'||a.hasAttribute('download')||a.hasAttribute('data-viewer'))return;
+      const u=new URL(a.href,location.href);
+      if(u.origin!==location.origin||!/^https?:$/.test(u.protocol))return;
+      if(u.pathname===location.pathname&&u.search===location.search)return;   // same-page anchors scroll smoothly instead
+      e.preventDefault();h.classList.add('leaving');
+      setTimeout(()=>{location.href=u.href},200);
+    });})();
   // Smooth FAQ open/close: animate the <details> height (falls back to the instant native toggle if reduced motion is on).
   document.querySelectorAll('.accordion details').forEach((d)=>{
     const s=d.querySelector('summary');let a,want=d.open;
