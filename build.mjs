@@ -22,7 +22,7 @@ import { CONTENT } from './src/config.mjs';
 import { load } from './src/content.mjs';
 import { renderPage } from './src/page.mjs';
 import { shell } from './src/shell.mjs';
-import { cleanOutput, writePage, writeExtras } from './src/output.mjs';
+import { cleanOutput, writePage, writeExtras, validateInternalLinks } from './src/output.mjs';
 import { reportProblems } from './src/report.mjs';
 
 cleanOutput();
@@ -33,6 +33,7 @@ const pages = fs
   .filter((f) => f.endsWith('.md') && f !== 'site.md')
   .map((f) => ({ file: f, ...load(f) }));
 const sitemap = [];
+const builtPages = [];
 
 for (const p of pages) {
   const d = p.data;
@@ -50,8 +51,10 @@ for (const p of pages) {
   });
   writePage(slug, html);
   sitemap.push(url);
+  builtPages.push({ file: p.file, slug, url });
 }
 
 writeExtras(sitemap);
+validateInternalLinks(builtPages);
 console.log(`Built ${pages.length} pages -> dist/`);
 reportProblems();

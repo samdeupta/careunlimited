@@ -1,7 +1,7 @@
 name: PR check
 on:
-  pull_request:
-    branches: [main]
+  push:
+    branches: ['**']
 permissions:
   contents: read
 concurrency:
