@@ -62,6 +62,7 @@ ${canonical}
 <meta property="og:type" content="website">
 <meta name="theme-color" content="${BRAND_DARK}">
 ${iconLink()}
+<script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="/style.css">
 ${[]
   .concat(jsonld || [])
@@ -98,6 +99,25 @@ ${[...features].map((f) => `${FEATURES[f].html}<script>${FEATURES[f].js}</script
 <script>
   const b=document.querySelector('.nav-toggle'),n=document.getElementById('nav');
   b.addEventListener('click',()=>{const o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  // Scroll fade-in: sections start faded (CSS, only when JS is on) and get .in once they scroll into view.
+  (()=>{const els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(e=>e.classList.add('in'));return}
+    const io=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    els.forEach((e)=>io.observe(e));})();
+  // Smooth FAQ open/close: animate the <details> height (falls back to the instant native toggle if reduced motion is on).
+  document.querySelectorAll('.accordion details').forEach((d)=>{
+    const s=d.querySelector('summary');let a,want=d.open;
+    s.addEventListener('click',(e)=>{
+      if(!d.animate||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      e.preventDefault();want=!want;
+      const from=d.offsetHeight;if(a)a.cancel();
+      if(want)d.open=true;
+      const to=want?d.offsetHeight:s.offsetHeight+d.offsetHeight-d.clientHeight;
+      d.style.overflow='hidden';
+      a=d.animate({height:[from+'px',to+'px']},{duration:320,easing:'ease'});
+      a.onfinish=()=>{d.open=want;d.style.overflow='';a=null};
+    });
+  });
 </script>
 </body>
 </html>`;

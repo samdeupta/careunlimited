@@ -45,7 +45,7 @@ export function renderPage(p, fileBase) {
       );
     }
     const id = part.id ? ` id="${part.id}"` : '';
-    return `<section class="band${i % 2 ? ' tint' : ''}"${id}><div class="wrap">${inner}</div></section>`;
+    return `<section class="band reveal${i % 2 ? ' tint' : ''}"${id}><div class="wrap">${inner}</div></section>`;
   });
 
   let head = banner(d);
