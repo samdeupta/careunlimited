@@ -3,7 +3,7 @@ type: accordion
 schema: faq
 slug: care-faqs
 title: FAQs
-banner: faqs-banner.png
+banner: faqs/faqs-banner.png
 description: "Frequently asked questions about Care Unlimited's service model, charges, visits and emergency coverage."
 ---
 <!-- Each "## " heading is a question; the text under it is the answer. -->

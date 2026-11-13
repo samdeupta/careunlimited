@@ -1,7 +1,7 @@
 ---
 type: text
 title: About Us
-image: philosophy-2.png
+image: home/philosophy-2.png
 image_position: left
 cta: { label: Read more, url: /about/ }
 ---

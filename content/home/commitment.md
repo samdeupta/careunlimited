@@ -1,7 +1,7 @@
 ---
 type: text
 title: Our commitment
-image: commitment.png
+image: home/commitment.png
 image_alt: Mission & Vision
 image_position: right
 ---

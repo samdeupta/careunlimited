@@ -1,7 +1,7 @@
 ---
 type: list
 title: What We Do
-image: what-we-do.png
+image: home/what-we-do.png
 image_position: right
 ---
 - We build everlasting relationships with our elderly members.
