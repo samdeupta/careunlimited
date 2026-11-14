@@ -24,7 +24,7 @@ Once a service model is fixed, there are rarely any additional charges. We under
 
 Our services are crafted to inspire our elders to engage with life purposefully which would lead to a positivity that is crucial to mental wellbeing. We thus arrange our services, outlined below, *depending on the preferences of each individual*:
 
-Eradicate their worries – by addressing their daily chores; Hold intellectually stimulating discussions; Give them a sense of achievement - Rekindle their desires, make them believe that their wishes / dreams can still be achieved; Arrange for new social connections for them by arranging social and cultural events; Design positivity boosters – publish annual magazine with their contributions and design calendars capturing memorable events from their lives; Understand & improve their positivity level; Provide 24X7 Medical Emergency Coverage – through a partnership with an organization specialized in the field of medical management.
+Eradicate their worries – by addressing their daily chores; Hold intellectually stimulating discussions; Give them a sense of achievement - Rekindle their desires, make them believe that their wishes / dreams can still be achieved; Arrange for new social connections for them by arranging social and cultural events; Design positivity boosters – publish annual magazine with their contributions and design calendars capturing memorable events from their lives; Understand & improve their positivity level; Provide 24 × 7 Medical Emergency Coverage – through a partnership with an organization specialized in the field of medical management.
 
 ## What if we need more visits than the subscribed model?
 
@@ -38,7 +38,7 @@ The service charges cover the time spent by Care Unlimited team. Any third-party
 
 We help design an emergency plan in advance to ensure that the household is adequately prepared to handle an emergency situation. We will provide suggestions of Hospitals or organizations where one can enroll to get emergency coverage. We will also try to assist if notified of emergency, but since our operation is not designed for such coverage - it will not be prudent to depend on us.
 
-We appreciate that a non-medical emergency plan is not sufficient for all our elders and hence, for those who need a comprehensive emergency medical management we have partnered with an organization who has the right expertise to complement us in the space of medical emergencies on a 24X7 basis. Clients of Care Unlimited can get emergency medical coverage from this organization after signing a tripartite agreement. Our clients would get the benefit of a negotiated rate and the security deposit would be fully waived (for clients with medical insurance).
+We appreciate that a non-medical emergency plan is not sufficient for all our elders and hence, for those who need a comprehensive emergency medical management we have partnered with an organization who has the right expertise to complement us in the space of medical emergencies on a 24 × 7 basis. Clients of Care Unlimited can get emergency medical coverage from this organization after signing a tripartite agreement. Our clients would get the benefit of a negotiated rate and the security deposit would be fully waived (for clients with medical insurance).
 
 ## Do I need to provide personal and financial information to the organization?
 
