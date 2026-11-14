@@ -1,4 +1,4 @@
-name: PR check
+name: Build check
 on:
   push:
     branches: ['**']
@@ -18,6 +18,4 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      # Fails on any build error (bad front matter, missing section file, unknown section type)
-      # and on any image referenced in content/ that is not in assets/img.
       - run: npm run check
