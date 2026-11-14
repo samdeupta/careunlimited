@@ -1,4 +1,3 @@
-// type: text (plain writing, optionally beside a picture) and type: list (ticked bullet points).
 import { esc } from '../util';
 import { imgTag } from '../images';
 import { md } from '../markdown';

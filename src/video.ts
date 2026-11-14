@@ -1,4 +1,3 @@
-// Video: recognising YouTube / Vimeo / local-file addresses and building the player HTML.
 import fs from 'node:fs';
 import path from 'node:path';
 import { ASSETS } from './config';
@@ -19,12 +18,6 @@ export const vimeoId = (u = ''): string | undefined => u.match(/vimeo\.com\/(?:v
 const LOCAL_VIDEO = /\.(mp4|webm|ogv)$/i;
 export const isLocalVideo = (u = ''): boolean => LOCAL_VIDEO.test(u) && !/^[a-z][a-z0-9+.-]*:/i.test(u);
 
-/**
- * A video thumbnail for: a YouTube / Vimeo URL or a local file in assets/vid. Clicking it opens the video in the shared
- * viewer (features.ts), so the player (and any cookies or tracking that come with it) only loads after a click; the
- * YouTube thumbnail image itself is still fetched on page load.
- * Returns '' for anything else.
- */
 export function videoEmbed(
   url: string,
   { title = '', poster = '' }: { title?: string; poster?: string } = {},
@@ -56,8 +49,6 @@ export function videoEmbed(
     const type = typeMap[extension] ?? '';
     const pu = poster ? imgUrl(poster) : '';
     const file = `/vid/${esc(name)}`;
-    // Thumbnail: the poster picture if there is one (nothing is downloaded), else the video's first frame (#t=0.1).
-    // Clicking opens the viewer.
     const thumb = pu
       ? `<video muted playsinline preload="none" tabindex="-1" aria-hidden="true" poster="${esc(pu)}" src="${file}"></video>`
       : `<video muted playsinline preload="metadata" tabindex="-1" aria-hidden="true" src="${file}#t=0.1"></video>`;

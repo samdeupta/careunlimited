@@ -1,12 +1,9 @@
-// type: videos. Cards that play a video (YouTube / Vimeo address, or a file in assets/vid) in the shared viewer;
-// the videos in one row can be stepped through with its previous/next buttons.
 import { esc } from '../util';
 import { md, extract, splitByHeading } from '../markdown';
 import { videoEmbed, isLocalVideo } from '../video';
 import { top } from './common';
 import type { ComponentContext, ComponentData } from '../types';
 
-/** Cards that play a video: a YouTube/Vimeo address or a file in assets/vid on each card's link line. */
 export function videos(d: ComponentData, content: string, ctx: ComponentContext): string {
   const { intro, blocks } = splitByHeading(content);
   const cardsHtml = blocks

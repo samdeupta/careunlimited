@@ -1,4 +1,3 @@
-// Builds the whole site (strict) and checks the generated HTML for the mistakes a human reviewer would catch.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';

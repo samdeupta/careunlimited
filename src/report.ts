@@ -1,14 +1,10 @@
-// End-of-build problems: oversized videos, images / videos that content refers to but that don't exist, and content
-// warnings (misspelled settings, ...). In --strict mode any of these fails the build.
 import fs from 'node:fs';
 import path from 'node:path';
 import { ASSETS, IN_CI, STRICT } from './config';
 import { missingHeroVideos, missingImages, missingVideos } from './missing';
 import { warnings } from './warnings';
 
-/** Print warnings and, in --strict mode, exit with an error if anything is missing. */
 export function reportProblems(): void {
-  // Large files: GitHub warns at 50 MB and rejects pushes over 100 MB.
   const bigVideos: string[] = [];
   for (const folder of ['vid', 'vids']) {
     (function walk(dir: string, rel = `${folder}/`): void {

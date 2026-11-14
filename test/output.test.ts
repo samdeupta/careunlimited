@@ -1,4 +1,3 @@
-// Making root-relative URLs relative to the page that contains them.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { relativize } from '../src/output';

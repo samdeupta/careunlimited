@@ -1,5 +1,3 @@
-// Markdown handling. Several of these double as an upgrade alarm for `marked`: if a new release changes how images,
-// paragraphs or autolinks come out, one of these fails instead of a picture or video silently vanishing.
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -9,7 +7,6 @@ import { site } from '../src/content';
 import { md, splitSections, splitByHeading, extract } from '../src/markdown';
 import { missingImages, missingVideos } from '../src/missing';
 
-/** Any image that really exists in assets/imgs, as a path relative to it. */
 function someImage(): string {
   const walk = (dir: string, rel = ''): string | undefined => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {

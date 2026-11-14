@@ -1,11 +1,9 @@
-// type: gallery. Picture groups that open in the full-screen viewer (features.ts).
 import { esc, slugify } from '../util';
 import { imgTag } from '../images';
 import { splitByHeading } from '../markdown';
 import { top } from './common';
 import type { ComponentContext, ComponentData } from '../types';
 
-/** Picture groups (one per heading) that open in a full-screen viewer with previous/next buttons. */
 export function gallery(d: ComponentData, content: string, ctx: ComponentContext): string {
   const { intro, blocks } = splitByHeading(content);
   const groups = blocks.length ? blocks : [{ title: '', body: intro }];

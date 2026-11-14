@@ -1,4 +1,3 @@
-// The one HTML page template: <head>, header + menu, footer, and the small shared script. Everything comes from site.md.
 import { BRAND_DARK } from './config';
 import { site } from './content';
 import { esc } from './util';
@@ -6,8 +5,6 @@ import { imgTag, imgUrl } from './images';
 import { FEATURES } from './features';
 import { renderTemplate } from './template';
 
-/** <link rel="icon"> for every page. Uses `favicon:` from site.md (a file in assets/img), else an auto-generated
- *  initials badge as an inline SVG, so browsers never fall back to requesting a missing /favicon.ico. */
 function iconLink(): string {
   const types: Record<string, string> = {
     svg: 'image/svg+xml',
@@ -88,18 +85,14 @@ export function shell({
   const sharedScript = `
   const b=document.querySelector('.nav-toggle'),n=document.getElementById('nav');
   b.addEventListener('click',()=>{const o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
-  // Scroll fade-in: sections start faded (CSS, only when JS is on) and get .in once they scroll into view.
-  // threshold 0 (not a fraction): a tall section on a phone can never be 12% visible, so it would stay invisible.
   (()=>{const els=document.querySelectorAll('.reveal');
     if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(e=>e.classList.add('in'));return}
     const io=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:0,rootMargin:'0px 0px -8% 0px'});
     els.forEach((e)=>io.observe(e));})();
-  // Pictures fade in once loaded (CSS hides lazy images only when JS is on; if anything goes wrong they still appear).
   document.querySelectorAll('img[loading=lazy]').forEach((i)=>{
     const ok=()=>i.classList.add('loaded');
     if(i.complete)ok();else{i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})}
   });
-  // Page-to-page fade for browsers without cross-document View Transitions: fade out on an internal link click, then go.
   (()=>{const h=document.documentElement;
     if(!h.classList.contains('no-vt')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     addEventListener('pageshow',(e)=>{if(e.persisted)h.classList.remove('leaving')});   // back button restores the page
@@ -113,7 +106,6 @@ export function shell({
       e.preventDefault();h.classList.add('leaving');
       setTimeout(()=>{location.href=u.href},200);
     });})();
-  // Smooth FAQ open/close: animate the <details> height (falls back to the instant native toggle if reduced motion is on).
   document.querySelectorAll('.accordion details').forEach((d)=>{
     const s=d.querySelector('summary');let a,want=d.open;
     s.addEventListener('click',(e)=>{

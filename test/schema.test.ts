@@ -1,4 +1,3 @@
-// The settings schema: what is kept, what is reported.
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeComponentData, normalizeSiteData } from '../src/schema';
