@@ -56,16 +56,21 @@ export function shell({
   const siteTagline = typeof site.tagline === 'string' ? site.tagline : '';
   const fullTitle = title ? `${title} – ${siteName}` : `${siteName} – ${siteTagline}`;
   const logo = typeof site.logo === 'string' && site.logo ? imgTag(site.logo, siteName, 'logo') : '';
-  const nav = ((site.nav as Array<{ url: string; label: string }> | undefined) ?? [])
+  const nav = (Array.isArray(site.nav) ? site.nav : [])
+    .filter((entry): entry is { url: string; label: string } => typeof entry?.url === 'string' && typeof entry.label === 'string')
     .map(
       (entry) =>
         `<li><a href="${esc(entry.url)}"${entry.url === url ? ' aria-current="page"' : ''}>${esc(entry.label)}</a></li>`,
     )
     .join('');
-  const social = ((site.social as Array<{ url: string; label: string }> | undefined) ?? [])
+  const social = (Array.isArray(site.social) ? site.social : [])
+    .filter((entry): entry is { url: string; label: string } => typeof entry?.url === 'string' && typeof entry.label === 'string')
     .map((entry) => `<a href="${esc(entry.url)}" rel="noopener">${esc(entry.label)}</a>`)
     .join(' · ');
-  const addr = ((site.address as string[] | undefined) ?? []).map((entry) => esc(entry)).join('<br>');
+  const addr = (Array.isArray(site.address) ? site.address : [])
+    .filter((entry): entry is string => typeof entry === 'string')
+    .map((entry) => esc(entry))
+    .join('<br>');
   const canonical = typeof site.url === 'string' && site.url
     ? `<link rel="canonical" href="${esc(site.url.replace(/\/$/, '') + url)}">`
     : '';

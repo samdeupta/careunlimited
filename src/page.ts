@@ -7,7 +7,7 @@ import { esc, slugify } from './util';
 import { imgTag } from './images';
 import { missingHeroVideos, missingImages } from './missing';
 import { COMPONENTS } from './components/registry';
-import type { ComponentContext, ComponentData, PageRecord, RenderedPage } from './types';
+import { normalizeComponentData, type ComponentContext, type ComponentData, type PageRecord, type RenderedPage } from './types';
 
 const banner = (d: ComponentData): string => (d.banner ? `<div class="banner">${imgTag(d.banner, '')}</div>` : '');
 
@@ -33,7 +33,7 @@ export function renderPage(p: PageRecord, fileBase: string): RenderedPage {
     if (!fs.existsSync(path.join(CONTENT, rel)))
       throw new Error(`Section file not found: content/${rel}`);
     const loaded = load(rel);
-    parts.push({ rel, id: slugify(name), data: loaded.data as ComponentData, content: String(loaded.content), page: false });
+    parts.push({ rel, id: slugify(name), data: normalizeComponentData(loaded.data), content: String(loaded.content), page: false });
   }
   const bands = parts.map((part, index) => {
     const type = typeof part.data.type === 'string' && part.data.type ? part.data.type : 'text';

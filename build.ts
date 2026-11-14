@@ -1,7 +1,7 @@
 // Care Unlimited: tiny static site generator. Reads Markdown from content/, writes plain HTML to dist/.
 //
-//   node build.ts            build, warn about missing images/videos
-//   node build.ts --strict   build, and fail if any image/video is missing (used by the PR check)
+//   npm run check            type-check and build, with warnings for missing images/videos
+//   npx tsx build.ts --strict   build, and fail if any image/video is missing (used by the PR check)
 //
 // Where things are (each file in src/ has one job; read its header comment first):
 //   src/config.ts       paths, run-mode flags, crash reporting, brand colour
@@ -32,8 +32,8 @@ const pages = fs
   .readdirSync(CONTENT)
   .filter((f) => f.endsWith('.md') && f !== 'site.md')
   .map((f) => ({ file: f, ...load(f) }));
-const sitemap = [];
-const builtPages = [];
+const sitemap: string[] = [];
+const builtPages: Array<{ file: string; slug: string; url: string }> = [];
 
 for (const p of pages) {
   const d = p.data;
