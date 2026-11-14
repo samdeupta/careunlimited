@@ -1,9 +1,3 @@
-// What the settings between the --- lines of a content file may contain.
-//
-// One table per kind of file (pages and blocks, and site.md). Each table is typed `Record<keyof …, Field>`, so adding
-// a setting to the type in types.ts without adding it here is a compile error, and the build checks every content
-// file against it: a misspelled setting name or a value of the wrong kind is reported (and fails --strict builds)
-// instead of being silently ignored.
 import type { ComponentData, NavItem, SiteData } from './types';
 import { warn } from './warnings';
 
@@ -73,12 +67,10 @@ export const SITE_FIELDS: Record<keyof SiteData, Field> = {
   footer_blurb: text,
 };
 
-/** Settings that used to exist: using one is an error with its own message, not a "misspelled" guess. */
 const REMOVED: Record<string, string> = {
   layout: 'is no longer used. Use "type:" instead',
 };
 
-/** The closest known name, for "did you mean …?" (only when it is a near miss). */
 function closest(name: string, known: string[]): string | undefined {
   const distance = (a: string, b: string): number => {
     const row = Array.from({ length: b.length + 1 }, (_, i) => i);
@@ -97,7 +89,6 @@ function closest(name: string, known: string[]): string | undefined {
   return ranked && ranked.d <= Math.max(2, Math.floor(name.length / 4)) ? ranked.k : undefined;
 }
 
-/** Keep the settings that are known and have the right kind of value; report the rest. */
 function pick<T>(file: string, data: unknown, fields: Record<keyof T, Field>): T {
   const out: Record<string, unknown> = {};
   if (!isRecord(data)) return out as T;

@@ -1,9 +1,3 @@
-// Extra markup + script that only some pages need. page.ts adds the 'lightbox' feature to any page whose HTML
-// contains data-viewer markup (gallery pictures, video thumbnails); shell.ts then appends it to that page only.
-//
-// The viewer is one native <dialog>. Its items are links marked data-viewer="image" | "embed" | "video".
-// Links inside the same [data-viewer-group] container are stepped through with the previous/next buttons;
-// a link outside any group opens on its own.
 
 import { renderTemplate } from './template';
 
@@ -37,7 +31,6 @@ export const LIGHTBOX_JS = `(function(){
     if(mediaAnimation){ mediaAnimation.cancel(); mediaAnimation=null; }
     if(captionAnimation){ captionAnimation.cancel(); captionAnimation=null; }
   }
-  // Opening renders straight away; stepping slides the current media out, then brings the next item in.
   function show(n,soft,direction){
     i=(n+items.length)%items.length; clearTimeout(t); transition++;
     var current=transition;

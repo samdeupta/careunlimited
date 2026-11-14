@@ -1,20 +1,14 @@
-// Writing files into dist/: the clean start, one HTML file per page, and 404 / sitemap / robots.
 import fs from 'node:fs';
 import path from 'node:path';
 import { ASSETS, OUT } from './config';
 import { site } from './content';
 import { shell } from './shell';
 
-/** Empty dist/ and copy assets/ into it (stylesheet, images, videos, favicon.ico if any). */
 export function cleanOutput(): void {
   fs.rmSync(OUT, { recursive: true, force: true });
   fs.cpSync(ASSETS, OUT, { recursive: true });
 }
 
-/**
- * Templates and components write root-relative URLs ("/imgs/a.jpg", "/about/"); make them relative to the page so the
- * site also works from a sub-folder or a preview address. Covers href / src / poster / data-src attributes and CSS url(...).
- */
 export function relativize(html: string, slug: string): string {
   const depth = slug ? slug.split('/').length : 0;
   const prefix = depth ? '../'.repeat(depth) : './';
@@ -23,16 +17,13 @@ export function relativize(html: string, slug: string): string {
     .replace(/(url\(\s*['"]?)\/(?!\/)/g, `$1${prefix}`);
 }
 
-/** Write dist/<slug>/index.html (or dist/index.html for the root page). */
 export function writePage(slug: string, html: string): void {
   const dest = path.join(OUT, slug, 'index.html');
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   fs.writeFileSync(dest, relativize(html, slug));
 }
 
-/** 404.html, and (when site.url is set) sitemap.xml + robots.txt. */
 export function writeExtras(sitemap: string[]): void {
-  // 404 (root-absolute links, because it is served from arbitrary paths)
   fs.writeFileSync(
     path.join(OUT, '404.html'),
     shell({
@@ -55,7 +46,6 @@ export function writeExtras(sitemap: string[]): void {
   }
 }
 
-/** Fail the build when a content-generated link points to a file or page that was not built. */
 export function validateInternalLinks(pages: Array<{ file: string; slug: string; url: string }>): void {
   const origin = new URL(site.url || 'https://careunlimited.invalid').origin;
 
@@ -64,7 +54,6 @@ export function validateInternalLinks(pages: Array<{ file: string; slug: string;
     const htmlPath = path.join(OUT, page.slug, 'index.html');
     const html = fs.readFileSync(htmlPath, 'utf8');
 
-    // Every link AND every file the page loads (images, video files and posters, the viewer's data-src) must exist.
     for (const [, , href] of html.matchAll(/(?:^|\s)(href|src|poster|data-src)="([^"]*)"/g)) {
       let target: URL;
       try {

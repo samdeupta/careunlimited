@@ -1,4 +1,3 @@
-// type: index. Links to every heading of another content page (`source:`), plus a button to that page.
 import path from 'node:path';
 import { esc, slugify } from '../util';
 import { load } from '../content';
@@ -6,7 +5,6 @@ import { splitByHeading } from '../markdown';
 import { top } from './common';
 import type { ComponentContext, ComponentData } from '../types';
 
-/** Links to every heading of another content page (`source:`), plus a button to that page. */
 export function index(d: ComponentData, content: string, ctx: ComponentContext): string {
   if (!d.source)
     throw new Error('type "index" needs a source: setting, e.g. source: other-page.md');

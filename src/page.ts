@@ -1,4 +1,3 @@
-// Assembling one page: banner, hero or title, the page's own text, then each block listed in `sections`.
 import fs from 'node:fs';
 import path from 'node:path';
 import { ASSETS, CONTENT } from './config';
@@ -12,8 +11,6 @@ import type { ComponentContext, ComponentData, PageRecord, RenderedPage } from '
 
 const banner = (d: ComponentData): string => (d.banner ? `<div class="banner">${imgTag(d.banner, '')}</div>` : '');
 
-/* ---------- page renderer (the only place pages are assembled) ----------
-   page = banner + (hero | <h1> title) + [the page's own body, shown as `type`] + each file in `sections`. */
 export function renderPage(p: PageRecord, fileBase: string): RenderedPage {
   const d = p.data;
   const ctx: ComponentContext = {
@@ -70,7 +67,6 @@ export function renderPage(p: PageRecord, fileBase: string): RenderedPage {
     head += `<div class="wrap page-head"><h1>${esc(d.title)}</h1></div>`; // the page title is the <h1>
   }
   const html = head + bands.join('\n');
-  // Any page with viewer links (gallery pictures, video thumbnails) gets the viewer markup + script.
   if (html.includes('data-viewer=')) ctx.features.add('lightbox');
   return { html, jsonld: ctx.jsonld, features: ctx.features };
 }

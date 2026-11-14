@@ -1,4 +1,3 @@
-// Tiny pure string helpers with no dependencies.
 
 export const esc = (s: unknown): string => {
   const replacements: Record<string, string> = {
