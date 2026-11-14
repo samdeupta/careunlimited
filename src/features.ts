@@ -1,11 +1,11 @@
-// Extra markup + script that only some pages need. page.mjs adds the 'lightbox' feature to any page whose HTML
-// contains data-viewer markup (gallery pictures, video thumbnails); shell.mjs then appends it to that page only.
+// Extra markup + script that only some pages need. page.ts adds the 'lightbox' feature to any page whose HTML
+// contains data-viewer markup (gallery pictures, video thumbnails); shell.ts then appends it to that page only.
 //
 // The viewer is one native <dialog>. Its items are links marked data-viewer="image" | "embed" | "video".
 // Links inside the same [data-viewer-group] container are stepped through with the previous/next buttons;
 // a link outside any group opens on its own.
 
-import { renderTemplate } from './template.mjs';
+import { renderTemplate } from './template';
 
 export const LIGHTBOX_HTML = renderTemplate('lightbox');
 export const LIGHTBOX_JS = `(function(){
@@ -93,4 +93,6 @@ export const LIGHTBOX_JS = `(function(){
   });
 })();`;
 
-export const FEATURES = { lightbox: { html: LIGHTBOX_HTML, js: LIGHTBOX_JS } };
+export const FEATURES: Record<string, { html: string; js: string }> = {
+  lightbox: { html: LIGHTBOX_HTML, js: LIGHTBOX_JS },
+};

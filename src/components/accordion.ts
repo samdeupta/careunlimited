@@ -1,10 +1,11 @@
 // type: accordion. Click-to-open question/answer list.
-import { esc, slugify } from '../util.mjs';
-import { md, splitByHeading } from '../markdown.mjs';
-import { top } from './common.mjs';
+import { esc, slugify } from '../util';
+import { md, splitByHeading } from '../markdown';
+import { top } from './common';
+import type { ComponentContext, ComponentData } from '../types';
 
 /** Click-to-open question/answer list, one per heading. `schema: faq` also adds search-engine FAQ data. */
-export function accordion(d, content, ctx) {
+export function accordion(d: ComponentData, content: string, ctx: ComponentContext): string {
   const { intro, blocks } = splitByHeading(content);
   if (d.schema === 'faq')
     ctx.jsonld.push({

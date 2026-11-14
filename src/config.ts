@@ -1,5 +1,5 @@
 // Paths and run-mode flags shared by every module.
-// build.mjs imports this file FIRST, so crash reporting is in place before anything else can fail.
+// build.ts imports this file FIRST, so crash reporting is in place before anything else can fail.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,7 +9,7 @@ export const CONTENT = path.join(ROOT, 'content');
 export const ASSETS = path.join(ROOT, 'assets');
 export const OUT = path.join(ROOT, 'dist');
 
-// `node build.mjs --strict` (used by the PR check) turns missing images and videos into a failed build.
+// `node build.ts --strict` (used by the PR check) turns missing images and videos into a failed build.
 export const STRICT = process.argv.includes('--strict');
 export const IN_CI = !!process.env.GITHUB_ACTIONS;
 if (IN_CI) {

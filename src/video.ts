@@ -1,35 +1,40 @@
 // Video: recognising YouTube / Vimeo / local-file addresses and building the player HTML.
 import fs from 'node:fs';
 import path from 'node:path';
-import { ASSETS } from './config.mjs';
-import { esc } from './util.mjs';
-import { imgTag, imgUrl } from './images.mjs';
-import { missingVideos } from './missing.mjs';
+import { ASSETS } from './config';
+import { esc } from './util';
+import { imgTag, imgUrl } from './images';
+import { missingVideos } from './missing';
 
 const YT_HOST = /(?:youtube\.com|youtu\.be|youtube-nocookie\.com)\//;
-export const ytId = (u = '') =>
-  !YT_HOST.test(u)
-    ? undefined
-    : (u.match(/[?&]v=([\w-]{6,})/) ||
-        u.match(/youtu\.be\/([\w-]{6,})/) ||
-        u.match(/\/(?:embed|shorts|live)\/([\w-]{6,})/) ||
-        [])[1];
-export const vimeoId = (u = '') => (u.match(/vimeo\.com\/(?:video\/)?(\d{5,})/) || [])[1];
+export const ytId = (u = ''): string | undefined => {
+  if (!YT_HOST.test(u)) return undefined;
+  const match =
+    u.match(/[?&]v=([\w-]{6,})/) ||
+    u.match(/youtu\.be\/([\w-]{6,})/) ||
+    u.match(/\/(?:embed|shorts|live)\/([\w-]{6,})/);
+  return match?.[1];
+};
+export const vimeoId = (u = ''): string | undefined => u.match(/vimeo\.com\/(?:video\/)?(\d{5,})/)?.[1];
 const LOCAL_VIDEO = /\.(mp4|webm|ogv)$/i;
-export const isLocalVideo = (u = '') => LOCAL_VIDEO.test(u) && !/^[a-z][a-z0-9+.-]*:/i.test(u);
+export const isLocalVideo = (u = ''): boolean => LOCAL_VIDEO.test(u) && !/^[a-z][a-z0-9+.-]*:/i.test(u);
 
 /**
  * A video thumbnail for: a YouTube / Vimeo URL or a local file in assets/vid. Clicking it opens the video in the shared
- * viewer (features.mjs), so the player (and any cookies or tracking that come with it) only loads after a click; the
+ * viewer (features.ts), so the player (and any cookies or tracking that come with it) only loads after a click; the
  * YouTube thumbnail image itself is still fetched on page load.
  * Returns '' for anything else.
  */
-export function videoEmbed(url, { title = '', poster = '' } = {}) {
+export function videoEmbed(
+  url: string,
+  { title = '', poster = '' }: { title?: string; poster?: string } = {},
+): string {
   const label = esc(title || 'Video');
-  const yt = ytId(url),
-    vm = vimeoId(url);
+  const yt = ytId(url);
+  const vm = vimeoId(url);
   if (yt || vm) {
-    const t = (url.match(/[?&](?:t|start)=(\d+)/) || [])[1];
+    const match = url.match(/[?&](?:t|start)=(\d+)/);
+    const t = match?.[1] ?? '';
     const src = yt
       ? `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0${t ? `&start=${t}` : ''}`
       : `https://player.vimeo.com/video/${vm}?autoplay=1&dnt=1`;
@@ -46,9 +51,9 @@ export function videoEmbed(url, { title = '', poster = '' } = {}) {
       missingVideos.add(name);
       return '';
     }
-    const type = { mp4: 'video/mp4', webm: 'video/webm', ogv: 'video/ogg' }[
-      name.split('.').pop().toLowerCase()
-    ];
+    const typeMap: Record<string, string> = { mp4: 'video/mp4', webm: 'video/webm', ogv: 'video/ogg' };
+    const extension = name.split('.').pop()?.toLowerCase() ?? '';
+    const type = typeMap[extension] ?? '';
     const pu = poster ? imgUrl(poster) : '';
     const file = `/vid/${esc(name)}`;
     // Thumbnail: the poster picture if there is one (nothing is downloaded), else the video's first frame (#t=0.1).

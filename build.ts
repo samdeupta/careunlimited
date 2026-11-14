@@ -1,29 +1,29 @@
 // Care Unlimited: tiny static site generator. Reads Markdown from content/, writes plain HTML to dist/.
 //
-//   node build.mjs            build, warn about missing images/videos
-//   node build.mjs --strict   build, and fail if any image/video is missing (used by the PR check)
+//   node build.ts            build, warn about missing images/videos
+//   node build.ts --strict   build, and fail if any image/video is missing (used by the PR check)
 //
 // Where things are (each file in src/ has one job; read its header comment first):
-//   src/config.mjs       paths, run-mode flags, crash reporting, brand colour
-//   src/util.mjs         esc / slugify / unesc
-//   src/content.mjs      load a content file; the site-wide settings (site.md)
-//   src/markdown.mjs     Markdown -> HTML, {{ placeholders }}, cutting text at headings
-//   src/images.mjs       image names -> <img> / URLs     src/video.mjs  video players
-//   src/missing.mjs      files referred to but not found  src/report.mjs  end-of-build report
-//   src/features.mjs     the image viewer (extra markup + script for pages that need it)
-//   src/components/      one file per block type (text, cards, accordion, gallery, ...) + registry.mjs
-//   src/page.mjs         assembles one page from its settings, text and blocks
-//   src/shell.mjs        fills the HTML page template; src/templates/ holds reusable HTML templates
-//   src/output.mjs       writes dist/: pages, 404, sitemap, robots
-import './src/config.mjs'; // first: installs crash reporting for CI
+//   src/config.ts       paths, run-mode flags, crash reporting, brand colour
+//   src/util.ts         esc / slugify / unesc
+//   src/content.ts      load a content file; the site-wide settings (site.md)
+//   src/markdown.ts     Markdown -> HTML, {{ placeholders }}, cutting text at headings
+//   src/images.ts       image names -> <img> / URLs     src/video.ts  video players
+//   src/missing.ts      files referred to but not found  src/report.ts  end-of-build report
+//   src/features.ts     the image viewer (extra markup + script for pages that need it)
+//   src/components/      one file per block type (text, cards, accordion, gallery, ...) + registry.ts
+//   src/page.ts         assembles one page from its settings, text and blocks
+//   src/shell.ts        fills the HTML page template; src/templates/ holds reusable HTML templates
+//   src/output.ts       writes dist/: pages, 404, sitemap, robots
+import './src/config'; // first: installs crash reporting for CI
 import fs from 'node:fs';
 import path from 'node:path';
-import { CONTENT } from './src/config.mjs';
-import { load } from './src/content.mjs';
-import { renderPage } from './src/page.mjs';
-import { shell } from './src/shell.mjs';
-import { cleanOutput, writePage, writeExtras, validateInternalLinks } from './src/output.mjs';
-import { reportProblems } from './src/report.mjs';
+import { CONTENT } from './src/config';
+import { load } from './src/content';
+import { renderPage } from './src/page';
+import { shell } from './src/shell';
+import { cleanOutput, writePage, writeExtras, validateInternalLinks } from './src/output';
+import { reportProblems } from './src/report';
 
 cleanOutput();
 

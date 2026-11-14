@@ -1,18 +1,18 @@
 // Writing files into dist/: the clean start, one HTML file per page, and 404 / sitemap / robots.
 import fs from 'node:fs';
 import path from 'node:path';
-import { ASSETS, OUT } from './config.mjs';
-import { site } from './content.mjs';
-import { shell } from './shell.mjs';
+import { ASSETS, OUT } from './config';
+import { site } from './content';
+import { shell } from './shell';
 
 /** Empty dist/ and copy assets/ into it (stylesheet, images, videos, favicon.ico if any). */
-export function cleanOutput() {
+export function cleanOutput(): void {
   fs.rmSync(OUT, { recursive: true, force: true });
   fs.cpSync(ASSETS, OUT, { recursive: true });
 }
 
 /** Write dist/<slug>/index.html (or dist/index.html for the root page). */
-export function writePage(slug, html) {
+export function writePage(slug: string, html: string): void {
   const depth = slug ? slug.split('/').length : 0;
   const prefix = depth ? '../'.repeat(depth) : './';
   // All templates use root-relative URLs; make them relative so the site works from any folder or sub-path.
@@ -25,7 +25,7 @@ export function writePage(slug, html) {
 }
 
 /** 404.html, and (when site.url is set) sitemap.xml + robots.txt. */
-export function writeExtras(sitemap) {
+export function writeExtras(sitemap: string[]): void {
   // 404 (root-absolute links, because it is served from arbitrary paths)
   fs.writeFileSync(
     path.join(OUT, '404.html'),
@@ -40,7 +40,7 @@ export function writeExtras(sitemap) {
     const base = site.url.replace(/\/$/, '');
     fs.writeFileSync(
       path.join(OUT, 'sitemap.xml'),
-      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap.map((u) => `  <url><loc>${base}${u}</loc></url>`).join('\n')}\n</urlset>\n`,
+      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap.map((item: string) => `  <url><loc>${base}${item}</loc></url>`).join('\n')}\n</urlset>\n`,
     );
     fs.writeFileSync(
       path.join(OUT, 'robots.txt'),
@@ -50,7 +50,7 @@ export function writeExtras(sitemap) {
 }
 
 /** Fail the build when a content-generated link points to a file or page that was not built. */
-export function validateInternalLinks(pages) {
+export function validateInternalLinks(pages: Array<{ file: string; slug: string; url: string }>): void {
   const origin = new URL(site.url || 'https://careunlimited.invalid').origin;
 
   for (const page of pages) {
@@ -59,7 +59,7 @@ export function validateInternalLinks(pages) {
     const html = fs.readFileSync(htmlPath, 'utf8');
 
     for (const [, href] of html.matchAll(/\bhref="([^"]*)"/g)) {
-      let target;
+      let target: URL;
       try {
         target = new URL(href, pageUrl);
       } catch {
@@ -67,7 +67,7 @@ export function validateInternalLinks(pages) {
       }
       if (target.origin !== origin) continue;
 
-      let pathname;
+      let pathname: string;
       try {
         pathname = decodeURIComponent(target.pathname);
       } catch {
