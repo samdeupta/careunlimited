@@ -2,15 +2,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
-import { CONTENT } from './config.mjs';
+import { CONTENT } from './config';
+import type { SiteData } from './types';
 
-export const load = (rel) => {
+export const load = (rel: string) => {
   try {
     return matter(fs.readFileSync(path.join(CONTENT, rel), 'utf8'));
-  } catch (e) {
+  } catch (error: unknown) {
+    const err = error as { mark?: { line?: number }; reason?: string; message?: string };
     // Name the file (and the line in it) so a typo in the settings block is easy to find.
-    const line = e.mark ? `, line ${e.mark.line + 1}` : ''; // mark.line is 0-based and the YAML text starts right after the opening ---
-    const reason = String(e.reason || e.message)
+    const line = err.mark?.line !== undefined ? `, line ${err.mark.line + 1}` : ''; // mark.line is 0-based and the YAML text starts right after the opening ---
+    const reason = String(err.reason ?? err.message ?? 'Unknown error')
       .split('\n')[0]
       .replace(/:$/, '');
     throw new Error(`content/${rel}${line}: ${reason}. Check the settings between the --- lines.`);
@@ -18,4 +20,4 @@ export const load = (rel) => {
 };
 
 /** Site-wide settings from content/site.md (name, nav, address, ...). */
-export const site = load('site.md').data;
+export const site = load('site.md').data as SiteData;

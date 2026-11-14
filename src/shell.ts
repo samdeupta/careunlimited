@@ -1,15 +1,15 @@
 // The one HTML page template: <head>, header + menu, footer, and the small shared script. Everything comes from site.md.
-import { BRAND_DARK } from './config.mjs';
-import { site } from './content.mjs';
-import { esc } from './util.mjs';
-import { imgTag, imgUrl } from './images.mjs';
-import { FEATURES } from './features.mjs';
-import { renderTemplate } from './template.mjs';
+import { BRAND_DARK } from './config';
+import { site } from './content';
+import { esc } from './util';
+import { imgTag, imgUrl } from './images';
+import { FEATURES } from './features';
+import { renderTemplate } from './template';
 
 /** <link rel="icon"> for every page. Uses `favicon:` from site.md (a file in assets/img), else an auto-generated
  *  initials badge as an inline SVG, so browsers never fall back to requesting a missing /favicon.ico. */
-function iconLink() {
-  const types = {
+function iconLink(): string {
+  const types: Record<string, string> = {
     svg: 'image/svg+xml',
     png: 'image/png',
     ico: 'image/x-icon',
@@ -18,12 +18,16 @@ function iconLink() {
     gif: 'image/gif',
     webp: 'image/webp',
   };
-  const url = site.favicon ? imgUrl(site.favicon) : '';
-  if (url)
-    return `<link rel="icon" href="${esc(url)}" type="${types[url.split('.').pop().toLowerCase()] || 'image/png'}">`;
-  const initials = (site.name || 'C')
+  const favicon = typeof site.favicon === 'string' ? site.favicon : '';
+  const url = favicon ? imgUrl(favicon) : '';
+  if (url) {
+    const ext = url.split('.').pop()?.toLowerCase() ?? 'png';
+    return `<link rel="icon" href="${esc(url)}" type="${types[ext] ?? 'image/png'}">`;
+  }
+  const siteName = typeof site.name === 'string' && site.name.trim() ? site.name : 'C';
+  const initials = siteName
     .split(/\s+/)
-    .map((w) => w[0])
+    .map((word: string) => word[0] ?? '')
     .join('')
     .slice(0, 2)
     .toUpperCase();
@@ -33,27 +37,48 @@ function iconLink() {
   return `<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg)}" type="image/svg+xml">`;
 }
 
-export function shell({ title, description, url, body, jsonld, features = [] }) {
-  const fullTitle = title ? `${title} – ${site.name}` : `${site.name} – ${site.tagline}`;
-  const logo = site.logo && imgTag(site.logo, site.name, 'logo');
-  const nav = site.nav
+export function shell({
+  title,
+  description = '',
+  url,
+  body,
+  jsonld = [],
+  features = [],
+}: {
+  title: string;
+  description?: string;
+  url: string;
+  body: string;
+  jsonld?: Array<Record<string, unknown>>;
+  features?: Iterable<string>;
+}): string {
+  const siteName = typeof site.name === 'string' && site.name.trim() ? site.name : 'Care Unlimited';
+  const siteTagline = typeof site.tagline === 'string' ? site.tagline : '';
+  const fullTitle = title ? `${title} – ${siteName}` : `${siteName} – ${siteTagline}`;
+  const logo = typeof site.logo === 'string' && site.logo ? imgTag(site.logo, siteName, 'logo') : '';
+  const nav = ((site.nav as Array<{ url: string; label: string }> | undefined) ?? [])
     .map(
-      (n) =>
-        `<li><a href="${esc(n.url)}"${n.url === url ? ' aria-current="page"' : ''}>${esc(n.label)}</a></li>`,
+      (entry) =>
+        `<li><a href="${esc(entry.url)}"${entry.url === url ? ' aria-current="page"' : ''}>${esc(entry.label)}</a></li>`,
     )
     .join('');
-  const social = (site.social || [])
-    .map((s) => `<a href="${esc(s.url)}" rel="noopener">${esc(s.label)}</a>`)
+  const social = ((site.social as Array<{ url: string; label: string }> | undefined) ?? [])
+    .map((entry) => `<a href="${esc(entry.url)}" rel="noopener">${esc(entry.label)}</a>`)
     .join(' · ');
-  const addr = (site.address || []).map(esc).join('<br>');
-  const canonical = site.url
+  const addr = ((site.address as string[] | undefined) ?? []).map((entry) => esc(entry)).join('<br>');
+  const canonical = typeof site.url === 'string' && site.url
     ? `<link rel="canonical" href="${esc(site.url.replace(/\/$/, '') + url)}">`
     : '';
-  const desc = description || site.description || '';
-  const featureHtml = [...features].map((f) => `${FEATURES[f].html}<script>${FEATURES[f].js}</script>`).join('\n');
-  const structuredData = []
-    .concat(jsonld || [])
-    .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`)
+  const desc = description || (typeof site.description === 'string' ? site.description : '');
+  const featureHtml = [...features]
+    .map((feature) => {
+      const featureDef = FEATURES[feature];
+      if (!featureDef) return '';
+      return `${featureDef.html}<script>${featureDef.js}</script>`;
+    })
+    .join('\n');
+  const structuredData = (jsonld ?? [])
+    .map((entry) => `<script type="application/ld+json">${JSON.stringify(entry)}</script>`)
     .join('\n');
   const sharedScript = `
   const b=document.querySelector('.nav-toggle'),n=document.getElementById('nav');
@@ -105,17 +130,17 @@ export function shell({ title, description, url, body, jsonld, features = [] }) 
     themeColor: BRAND_DARK,
     iconLink: iconLink(),
     jsonld: structuredData,
-    logo: logo || esc(site.name),
+    logo: logo || esc(siteName),
     nav,
     body,
     features: featureHtml,
-    siteName: esc(site.name),
-    footerBlurb: esc(site.footer_blurb || ''),
+    siteName: esc(siteName),
+    footerBlurb: esc(typeof site.footer_blurb === 'string' ? site.footer_blurb : ''),
     social,
     address: addr,
-    phoneHref: esc((site.phone || '').replace(/\s+/g, '')),
-    phone: esc(site.phone),
-    email: esc(site.email),
+    phoneHref: esc((typeof site.phone === 'string' ? site.phone : '').replace(/\s+/g, '')),
+    phone: esc(typeof site.phone === 'string' ? site.phone : ''),
+    email: esc(typeof site.email === 'string' ? site.email : ''),
     year: new Date().getFullYear(),
     sharedScript,
   });

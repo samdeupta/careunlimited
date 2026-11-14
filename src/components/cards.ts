@@ -1,11 +1,12 @@
 // type: cards. A grid of boxes, one per heading.
-import { esc, slugify } from '../util.mjs';
-import { imgTag } from '../images.mjs';
-import { md, extract, splitByHeading } from '../markdown.mjs';
-import { top } from './common.mjs';
+import { esc, slugify } from '../util';
+import { imgTag } from '../images';
+import { md, extract, splitByHeading } from '../markdown';
+import { top } from './common';
+import type { ComponentContext, ComponentData } from '../types';
 
 /** A grid of cards, one per heading. Optional per card: a picture line, an _italic_ subtitle line, a link line. */
-export function cards(d, content, ctx) {
+export function cards(d: ComponentData, content: string, ctx: ComponentContext): string {
   const { intro, blocks } = splitByHeading(content);
   const cols = Math.min(4, Math.max(1, Number(d.columns) || 3));
   const items = blocks
