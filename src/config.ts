@@ -9,7 +9,7 @@ export const CONTENT = path.join(ROOT, 'content');
 export const ASSETS = path.join(ROOT, 'assets');
 export const OUT = path.join(ROOT, 'dist');
 
-// `node build.ts --strict` (used by the PR check) turns missing images and videos into a failed build.
+// `npx tsx build.ts --strict` (used by the PR check) turns missing images and videos into a failed build.
 export const STRICT = process.argv.includes('--strict');
 export const IN_CI = !!process.env.GITHUB_ACTIONS;
 if (IN_CI) {

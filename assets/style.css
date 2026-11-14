@@ -6,7 +6,7 @@
 @font-face{font-family:"Source Sans 3";font-style:italic;font-weight:200 900;font-display:swap;src:url(/fonts/source-sans-3-latin-wght-italic.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
   /* Palette: two blues + white. This is the only place colours are defined: edit these two triplets
-     and the whole site follows. (build.mjs reads --blue-dark-rgb from here for the favicon and the
+     and the whole site follows. (the build reads --blue-dark-rgb from here for the favicon and the
      browser theme colour, so keep that variable's name and "R G B" format.) */
   --blue-dark-rgb:11 58 110;   /* navy  #0b3a6e */
   --blue-rgb:29 99 201;        /* blue  #1d63c9 */
@@ -182,7 +182,7 @@ body:has(dialog[open]){overflow:hidden}
 @media print{.site-header,.site-footer,.nav-toggle{display:none}}
 
 /* page transitions. Browsers with cross-document View Transitions (Chrome/Edge, Safari 18.2+) cross-fade between
-   pages and keep the header still. Others get a fade-in on arrival (and a fade-out on click, see shell.mjs). */
+   pages and keep the header still. Others get a fade-in on arrival (and a fade-out on click, see shell.ts). */
 @media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}
 .site-header{view-transition-name:site-header}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.35s;animation-timing-function:ease}
@@ -190,7 +190,7 @@ body:has(dialog[open]){overflow:hidden}
 .js.no-vt body{animation:page-in .4s ease backwards;transition:opacity .2s ease}
 .js.no-vt.leaving body{opacity:0}
 
-/* pictures fade in as they finish loading (only when JS is running; shell.mjs adds .loaded) */
+/* pictures fade in as they finish loading (only when JS is running; shell.ts adds .loaded) */
 .js img[loading=lazy]{opacity:0;transition:opacity .5s ease}
 .js img[loading=lazy].loaded{opacity:1}
 @media print{.js img[loading=lazy]{opacity:1}}
