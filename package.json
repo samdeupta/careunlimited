@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsx build.ts",
     "preview": "npm run build && npx --yes serve dist",
-    "check": "tsc --noEmit && tsx build.ts --strict"
+    "check": "tsc --noEmit && tsx build.ts --strict && npm test",
+    "test": "node --import tsx --test test/*.test.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

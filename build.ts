@@ -7,9 +7,11 @@
 //   src/config.ts       paths, run-mode flags, crash reporting, brand colour
 //   src/util.ts         esc / slugify / unesc
 //   src/content.ts      load a content file; the site-wide settings (site.md)
+//   src/schema.ts       which settings a content file may have, and what kind of value each takes
 //   src/markdown.ts     Markdown -> HTML, {{ placeholders }}, cutting text at headings
 //   src/images.ts       image names -> <img> / URLs     src/video.ts  video players
-//   src/missing.ts      files referred to but not found  src/report.ts  end-of-build report
+//   src/missing.ts      files referred to but not found  src/warnings.ts  other content problems
+//   src/report.ts       end-of-build report
 //   src/features.ts     the image viewer (extra markup + script for pages that need it)
 //   src/components/      one file per block type (text, cards, accordion, gallery, ...) + registry.ts
 //   src/page.ts         assembles one page from its settings, text and blocks
@@ -20,6 +22,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { CONTENT } from './src/config';
 import { load } from './src/content';
+import { normalizeComponentData } from './src/schema';
 import { renderPage } from './src/page';
 import { shell } from './src/shell';
 import { cleanOutput, writePage, writeExtras, validateInternalLinks } from './src/output';
@@ -31,7 +34,10 @@ cleanOutput();
 const pages = fs
   .readdirSync(CONTENT)
   .filter((f) => f.endsWith('.md') && f !== 'site.md')
-  .map((f) => ({ file: f, ...load(f) }));
+  .map((f) => {
+    const loaded = load(f);
+    return { file: f, data: normalizeComponentData(f, loaded.data), content: loaded.content };
+  });
 const sitemap: string[] = [];
 const builtPages: Array<{ file: string; slug: string; url: string }> = [];
 
@@ -42,7 +48,7 @@ for (const p of pages) {
   const { html: body, jsonld, features } = renderPage(p, path.basename(p.file, '.md'));
   // The root page (slug "") has no title of its own: shell() falls back to the site name + tagline.
   const html = shell({
-    title: slug ? d.title : '',
+    title: slug ? (d.title ?? '') : '',
     description: d.description,
     url,
     body,

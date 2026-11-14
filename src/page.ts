@@ -7,7 +7,8 @@ import { esc, slugify } from './util';
 import { imgTag } from './images';
 import { missingHeroVideos, missingImages } from './missing';
 import { COMPONENTS } from './components/registry';
-import { normalizeComponentData, type ComponentContext, type ComponentData, type PageRecord, type RenderedPage } from './types';
+import { normalizeComponentData } from './schema';
+import type { ComponentContext, ComponentData, PageRecord, RenderedPage } from './types';
 
 const banner = (d: ComponentData): string => (d.banner ? `<div class="banner">${imgTag(d.banner, '')}</div>` : '');
 
@@ -15,10 +16,6 @@ const banner = (d: ComponentData): string => (d.banner ? `<div class="banner">${
    page = banner + (hero | <h1> title) + [the page's own body, shown as `type`] + each file in `sections`. */
 export function renderPage(p: PageRecord, fileBase: string): RenderedPage {
   const d = p.data;
-  if ('layout' in d)
-    throw new Error(
-      `content/${p.file}: "layout" is no longer used. Use "type:" instead (${Object.keys(COMPONENTS).join(', ')}).`,
-    );
   const ctx: ComponentContext = {
     page: false,
     features: new Set<string>(),
@@ -33,7 +30,7 @@ export function renderPage(p: PageRecord, fileBase: string): RenderedPage {
     if (!fs.existsSync(path.join(CONTENT, rel)))
       throw new Error(`Section file not found: content/${rel}`);
     const loaded = load(rel);
-    parts.push({ rel, id: slugify(name), data: normalizeComponentData(loaded.data), content: String(loaded.content), page: false });
+    parts.push({ rel, id: slugify(name), data: normalizeComponentData(rel, loaded.data), content: String(loaded.content), page: false });
   }
   const bands = parts.map((part, index) => {
     const type = typeof part.data.type === 'string' && part.data.type ? part.data.type : 'text';

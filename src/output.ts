@@ -11,17 +11,23 @@ export function cleanOutput(): void {
   fs.cpSync(ASSETS, OUT, { recursive: true });
 }
 
-/** Write dist/<slug>/index.html (or dist/index.html for the root page). */
-export function writePage(slug: string, html: string): void {
+/**
+ * Templates and components write root-relative URLs ("/imgs/a.jpg", "/about/"); make them relative to the page so the
+ * site also works from a sub-folder or a preview address. Covers href / src / poster / data-src attributes and CSS url(...).
+ */
+export function relativize(html: string, slug: string): string {
   const depth = slug ? slug.split('/').length : 0;
   const prefix = depth ? '../'.repeat(depth) : './';
-  // All templates use root-relative URLs; make them relative so the site works from any folder or sub-path.
-  const out = html
-    .replace(/(href|src|poster)="\/(?!\/)/g, `$1="${prefix}`)
-    .replace(/url\('\/imgs\//g, `url('${prefix}imgs/`);
+  return html
+    .replace(/(\s(?:href|src|poster|data-src)=")\/(?!\/)/g, `$1${prefix}`)
+    .replace(/(url\(\s*['"]?)\/(?!\/)/g, `$1${prefix}`);
+}
+
+/** Write dist/<slug>/index.html (or dist/index.html for the root page). */
+export function writePage(slug: string, html: string): void {
   const dest = path.join(OUT, slug, 'index.html');
   fs.mkdirSync(path.dirname(dest), { recursive: true });
-  fs.writeFileSync(dest, out);
+  fs.writeFileSync(dest, relativize(html, slug));
 }
 
 /** 404.html, and (when site.url is set) sitemap.xml + robots.txt. */
@@ -58,7 +64,8 @@ export function validateInternalLinks(pages: Array<{ file: string; slug: string;
     const htmlPath = path.join(OUT, page.slug, 'index.html');
     const html = fs.readFileSync(htmlPath, 'utf8');
 
-    for (const [, href] of html.matchAll(/\bhref="([^"]*)"/g)) {
+    // Every link AND every file the page loads (images, video files and posters, the viewer's data-src) must exist.
+    for (const [, , href] of html.matchAll(/(?:^|\s)(href|src|poster|data-src)="([^"]*)"/g)) {
       let target: URL;
       try {
         target = new URL(href, pageUrl);

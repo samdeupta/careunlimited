@@ -3,7 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
 import { CONTENT } from './config';
-import { normalizeSiteData, type SiteData } from './types';
+import { normalizeSiteData } from './schema';
+import type { SiteData } from './types';
 
 export const load = (rel: string) => {
   try {
@@ -20,4 +21,4 @@ export const load = (rel: string) => {
 };
 
 /** Site-wide settings from content/site.md (name, nav, address, ...). */
-export const site: SiteData = normalizeSiteData(load('site.md').data);
+export const site: SiteData = normalizeSiteData('site.md', load('site.md').data);
