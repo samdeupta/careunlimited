@@ -1,14 +1,14 @@
 # Care Unlimited – Content Guide
 
-How to change the words, pictures and videos on the website. No programming needed, just careful typing.
+How to change the words, pictures and videos on the website. No programming needed, just careful typing. You only ever work in two folders: **`content/`** (the words) and **`assets/`** (the pictures and videos). How the site is built behind the scenes is covered in [DEVELOPERS.md](DEVELOPERS.md); you don't need it.
 
-**Contents:** [The big picture](#1-the-big-picture) · [Writing settings](#2-writing-settings) · [Writing text](#3-writing-text-markdown) · [Pictures](#4-pictures) · [Videos](#5-videos) · [How a page is built](#6-how-a-page-is-built) · [Block types](#7-block-types) · [The pages of this site](#8-the-pages-of-this-site) · [Adding or removing pages](#9-adding-or-removing-pages) · [When something looks wrong](#10-when-something-looks-wrong) · [Cheat sheet](#11-cheat-sheet)
+**Contents:** [The big picture](#1-the-big-picture) · [Making your changes live](#making-your-changes-live) · [Writing settings](#2-writing-settings) · [Writing text](#3-writing-text-markdown) · [Pictures](#4-pictures) · [Videos](#5-videos) · [How a page is built](#6-how-a-page-is-built) · [Block types](#7-block-types) · [The pages of this site](#8-the-pages-of-this-site) · [Adding or removing pages](#9-adding-or-removing-pages) · [When something looks wrong](#10-when-something-looks-wrong) · [Cheat sheet](#11-cheat-sheet)
 
 ---
 
 ## 1. The big picture
 
-The website is made from plain text files in the **`content`** folder. One file is one page. Change the text in a file, save it, and the website updates. **Every page works the same way**: there are no special page types hidden in the software. What a page looks like is decided entirely by the settings in its file.
+The website is made from plain text files in the **`content`** folder. One file is one page. Change the text in a file, publish your change (see "Making your changes live" below), and the website updates. **Every page works the same way**: there are no special page types hidden in the software. What a page looks like is decided entirely by the settings in its file.
 
 | Folder | What lives there |
 |---|---|
@@ -17,7 +17,7 @@ The website is made from plain text files in the **`content`** folder. One file 
 | `content/home/` | The blocks that make up the home page |
 | `assets/imgs/<page>/` | Pictures used by that page (for example `assets/imgs/about/`) |
 | `assets/imgs/site/` | Site-wide pictures, such as the logo and favicon |
-| `assets/vid/` | Video files used in content blocks (optional) |
+| `assets/vid/` | Video files used in content blocks (optional; create the folder the first time you add one) |
 | `assets/vids/` | Background video files used by page heroes (optional) |
 
 **Every content file has two parts**, separated by a line of three dashes:
@@ -39,6 +39,18 @@ Care Unlimited commenced in 2015. It saw the need for support for our older citi
 2. **Keep the layout exactly as it is:** the `---` lines, the spaces, the indentation.
 3. **File names must match exactly**, letter for letter, including capital letters and the ending (`.jpg` is not `.jpeg`). `Photo.jpg` and `photo.jpg` are different files.
 4. **Change one thing at a time** and check the page. It's much easier to find a slip.
+
+### What to leave alone
+
+Everything outside `content/` and `assets/` is the machinery that builds the site (`src/`, `build.ts`, `.github/`, `package.json` and so on). Inside `assets/`, `style.css` and the `fonts/` folder control the colours and lettering; leave those to whoever looks after the technical side too.
+
+### Making your changes live
+
+Saving a file does not change the live website by itself. Your change goes live in three steps:
+
+1. **Save your change to the project on GitHub** (this is called "committing").
+2. **Wait for the automatic check.** Every time something is saved, GitHub checks that the site still builds (the "Build check" under the **Actions** tab). A green tick means all is well. A red cross means something needs fixing: open it to see a message naming the file and the line (section 10 explains the common ones).
+3. **Publish.** Under **Actions**, choose **Deploy to Vercel**, then **Run workflow**. This repeats the check and only then updates the live site, so a mistake cannot go live by accident: if the check fails, the website stays as it was.
 
 ---
 
@@ -78,8 +90,8 @@ A setting can hold a **list**. Both of these mean the same thing, and you will s
 
 ```
 address:
-  - 7, Aswini Dutta Road, Ground Floor
-  - Kolkata - 700 029
+  - 47, Dhakuria Station Road
+  - Kolkata - 700 031
 ```
 
 ```
@@ -176,7 +188,7 @@ Any setting in `site.md` can be used this way (`{{ site.name }}`, `{{ site.tagli
 - Use lowercase names with no spaces: `kolkata-picnic-2026.jpg`, not `Kolkata Picnic (2).JPG`.
 - **JPG** for photographs, **PNG** for drawings, logos and anything with text.
 - Wide banner pictures work best around 1600 pixels wide. Please keep every picture under about 1 MB so pages load quickly on phones.
-- **If a name doesn't match any file, the picture is simply left out.** Nothing else breaks. If a picture is missing, check the spelling, capital letters and ending.
+- **If a name doesn't match any file, the picture is left out of the page**, and the automatic check fails and tells you which file is missing, so the change can't go live until it is fixed. Check the spelling, capital letters and ending.
 
 **Where the main pictures are chosen**
 
@@ -210,7 +222,7 @@ Visitors see the video's picture with a play button. Clicking it opens the video
 
 ### A video file you upload yourself
 
-1. Save the file in **`assets/vid/`**. It must be `.mp4` (best), `.webm` or `.ogv`.
+1. Save the file in **`assets/vid/`** (create the folder if it isn't there yet). It must be `.mp4` (best), `.webm` or `.ogv`. Don't confuse it with `assets/vids/`, which only holds the looping background video of a page's big top section (section 6).
 2. In the text, on a line by itself, write:
 
 ```
@@ -278,7 +290,7 @@ sections:
   - gallery-of-events
 ```
 
-Each name is a file in a folder named after the page, without the `.md`. For a page in `services.md`, the block `success` is the file `content/services/success.md`. (The home page's blocks are in `content/home/`.)
+Each name is a file in a folder named after the page's **file** (without the `.md`), not after its `slug`. For a page in `services.md`, the block `success` is the file `content/services/success.md`. (The home page's blocks are in `content/home/`.)
 
 - **To add a block:** create the file, then add its name to the `sections` list. Use only lowercase letters, numbers and hyphens in the name.
 - **To hide or reorder blocks:** remove a name from the list, or move it.
@@ -467,43 +479,45 @@ A short sentence that appears above the links.
 - `source` is required. `cta_label` is the button's wording (default: Read more).
 - It works best with a page of `cards`, `accordion` or `gallery` type, because those give every item a link target.
 
-### `form`: an enquiry form
+### `form`: an "Email us" button
+
+Despite its name, this block does not send messages from the website. It shows an **"Email us" button** that opens the visitor's own email program, with your text beside it (usually the address and phone number).
 
 ```
 ---
 type: form
 title: Get in touch
-button: Send message
-fields:
-  - { name: name,    label: Your name (required),  required: true, autocomplete: name }
-  - { name: email,   label: Your email (required), type: email, required: true, autocomplete: email }
-  - { name: phone,   label: Your phone no.,        type: tel }
-  - { name: message, label: Your message,          type: textarea }
+button_fallback: Email us
 ---
 {{ site.address }}
 
+[{{ site.phone }}](tel:{{ site.phone | digits }})  
 [{{ site.email }}](mailto:{{ site.email }})
 ```
 
-- The text below the settings appears **beside** the form (leave it out for a form on its own).
-- Each field has a `name` (any short word, no spaces), a `label` (the words visitors see), and optionally `type` (`text` by default, or `email`, `tel`, `textarea`), `required: true` and `autocomplete`.
-- `button` is the wording on the button.
-- Where the form's messages go is set once, in `form_action` in `content/site.md`, by whoever looks after the site's technical side. **If it isn't set, visitors see an "Email us" button instead of the form.**
+| Setting | Meaning |
+|---|---|
+| `title` | The block's heading (blocks only; a page already shows its own title) |
+| `email` | The address the button writes to (optional; defaults to `email` in `content/site.md`) |
+| `button_fallback` | The words on the button (optional; default `Email us`) |
+
+- The text below the settings appears **beside** the button. Leave it out for a button on its own.
+- To change where the emails go for the whole site, change `email` in `content/site.md`.
 
 ---
 
 ## 8. The pages of this site
 
-| Page | File | How it's built |
-|---|---|---|
-| Menu, address, phone, email, footer | `content/site.md` | Settings only (below) |
-| Home | `content/home.md` + `content/home/*.md` | Big top section, then these blocks: philosophy (`text`), about (`text`), commitment (`text`), why-us (`text`), what-we-do (`list`), memory-montage (`videos`), testimonials (`testimonials`), social-support (`index`) |
-| About Us | `content/about.md` | `text` |
-| Services | `content/services.md` + `content/services/success.md` | `cards` (4 columns), then one `text` block |
-| FAQs | `content/faqs.md` | `accordion` with `schema: faq` |
-| Social Support | `content/social-support.md` | `cards` (1 column) |
-| Media | `content/media.md` + `content/media/press.md` | `gallery`, then one `text` block holding the press links |
-| Contact Us | `content/contact.md` | `form`, with the address and phone beside it |
+| Page | Address | File | How it's built |
+|---|---|---|---|
+| Menu, address, phone, email, footer | | `content/site.md` | Settings only (below) |
+| Home | `/` | `content/home.md` + `content/home/*.md` | Big top section with a looping background video, then these blocks: philosophy (`text`), about (`text`), commitment (`text`), why-us (`text`), what-we-do (`list`), memory-montage (`videos`), testimonials (`testimonials`), social-support (`index`) |
+| About Us | `/about/` | `content/about.md` | `text` |
+| Services | `/services/` | `content/services.md` + `content/services/*.md` | Three blocks: intro (`text`), coverage (`cards`, 4 columns), success (`text`) |
+| FAQs | `/care-faqs/` | `content/faqs.md` | `accordion` with `schema: faq` |
+| Social Support | `/social-support/` | `content/social-support.md` | `cards` (1 column) |
+| Media | `/media/` | `content/media.md` + `content/media/press.md` | `gallery`, then one `text` block holding the press links |
+| Contact Us | `/contact/` | `content/contact.md` | `form` (the "Email us" button), with the address and phone beside it |
 
 Because every page works the same way, changing a page's look is just changing its `type:`.
 
@@ -513,9 +527,10 @@ Because every page works the same way, changing a page's look is just changing i
 ---
 slug: ""
 title: Home
-description: "Care Unlimited – Attention | Care | Respect."
-hero_title: "Attention | Care | Respect"
-hero_text: "Changing the experience of old age through active aging and meaningful engagement."
+description: "Care Unlimited – Attention | Care | Respect. Relationship-based support for senior citizens in Kolkata."
+hero_title: "Care Unlimited"
+hero_text: "Journey with us for happier senior years"
+hero_video: "banner-vid.mp4"
 hero_buttons:
   - { label: Our services, url: /services/ }
   - { label: Contact us,   url: /contact/ }
@@ -542,8 +557,8 @@ This file has settings only, no text underneath.
 | `name` | The organisation's name |
 | `tagline` | The slogan, used in the browser tab title of the home page |
 | `description` | One or two sentences Google may show under the site name |
-| `logo` | Logo file name in `assets/img` |
-| `favicon` | Browser-tab icon file name; empty gives an automatic icon |
+| `logo` | Logo file, written relative to `assets/imgs/` (for example `site/web-logo.png`) |
+| `favicon` | Browser-tab icon, written like `logo`; empty gives an automatic icon |
 | `footer_blurb` | The sentence in the footer |
 | `address` | List, one line per item |
 | `phone`, `email` | Shown in the footer, and available as placeholders (section 3) |
@@ -552,8 +567,8 @@ This file has settings only, no text underneath.
 
 ```
 address:
-  - 7, Aswini Dutta Road, Ground Floor
-  - Kolkata - 700 029
+  - 47, Dhakuria Station Road
+  - Kolkata - 700 031
 phone: "+91 9874019729"
 nav:
   - { label: Home,       url: / }
@@ -561,7 +576,7 @@ nav:
   - { label: Contact Us, url: /contact/ }
 ```
 
-The settings `url`, `form_action` and `form_netlify` are technical. **Leave them alone** unless the person who looks after the site's technical side asks you to change them.
+`url` (the site's full web address, used for search engines) is technical. **Leave it alone** unless the person who looks after the site's technical side asks you to change it.
 
 ---
 
@@ -640,13 +655,11 @@ title: Photos
 ---
 type: form
 title: Ask us about events
-fields:
-  - { name: message, label: Your message, type: textarea }
 ---
 Call us on [{{ site.phone }}](tel:{{ site.phone | digits }}).
 ```
 
-Here the page's own text is a question list, followed by a gallery and a form. Any combination of the types in section 7 works.
+Here the page's own text is a question list, followed by a gallery and an "Email us" button. Any combination of the types in section 7 works.
 
 ### Copying a page you like
 
@@ -680,9 +693,12 @@ Change the `slug:` line **and** the matching menu line in `site.md`. Old links t
 | A card shows an unexpected link or subtitle | A line that is only a link, or only wrapped in underscores, is treated as the card's link or subtitle. Put other words on the same line to keep it as ordinary text |
 | A menu item leads to "page not found" | The menu `url` must be `/` + the page's `slug` + `/`, for example `/about/` |
 | A block you added isn't showing | Its name must be in the page's `sections` list, spelled the same as its file name |
-| The form shows an "Email us" button | `form_action` isn't set in `content/site.md`. Ask whoever looks after the technical side |
+| The "Email us" button writes to the wrong address | Set `email` in `content/site.md` (or in that block's settings) |
+| Warning: `unknown setting "…"` (often with "did you mean…?") | A setting name is misspelt or isn't a real setting. It is ignored, and the check fails until you fix it |
+| Warning: `"…" must be …` | A setting has the wrong kind of value, for example a list where a single value is expected. It is ignored, and the check fails until you fix it |
+| Error: link `"…"` points to missing route or file | A link in your text goes to a page or file that doesn't exist. Check the address against the pages table in section 8 (for example the FAQs are at `/care-faqs/`) |
 
-A mistake in the settings stops the update before it goes live, and the error message names the file and the line. A misspelt picture name only means the picture is left out.
+A mistake in the settings, a broken link or a missing picture or video makes the automatic check fail, so the site is not updated until it is fixed, and the message names the file (and usually the line). Section 1 explains where to find it.
 
 ---
 
